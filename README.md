@@ -1,2 +1,3 @@
 # cnblogs-skin
-一个基于blank的萌系皮肤
+一款基于博客园blank样式的皮肤。
+简约~萌~
