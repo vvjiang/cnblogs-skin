@@ -1,0 +1,263 @@
+<html lang="zh-cn"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>【Chrome控制台】获取元素上绑定的事件信息以及监控事件 - 韩子卢 - 博客园</title>
+    <link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=-hy83QNg62d4qYibixJzxMJkbf1P9fTBlqv7SK5zVL01">
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/blank/bundle-blank-mobile.css?v=d9LctKHRIQp9rreugMcQ1-UJuq_j1fo0GZXTXj8Bqrk1">
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/vvjiang/rss">
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/vvjiang/rsd.xml">
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/vvjiang/wlwmanifest.xml">
+    <script async="" src="https://www.google-analytics.com/analytics.js"></script><script type="text/javascript" src="http://common.cnblogs.com/script/encoder.js"></script><script src="//common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript">var currentBlogApp = 'vvjiang', cb_enable_mathjax=false;var isLogined=true;</script>
+    <script src="/bundles/blog-common.js?v=O-NTEmnhjbG7lSYLc3yeqkrVxfMJyY9iXf4xyjlKikw1" type="text/javascript"></script>
+    </head>
+    <body>
+    <a name="top"></a>
+    
+    <!--done-->
+    <div id="wrap">
+    <div id="banner">
+    <!--done-->
+    <div class="header">
+        <div class="headerText">
+            <a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/vvjiang/"></a><br>
+        </div>
+        <div class="headerDis">风起于青萍之末，浪成于微澜之间</div>
+    </div>
+    </div>
+    <div id="main">
+        <!-- left starts -->
+        <div id="left">
+            <div id="mystats">
+                
+                    
+                
+            </div>
+            <div id="mylinks">
+    <!--done-->
+    <a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a>&nbsp;&nbsp;<a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/vvjiang/">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="MyLinks1_NewArticleLink" class="menu" href="/EnterMyBlog.aspx?NewArticle=1">新文章</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a>&nbsp;&nbsp;&nbsp;</div>
+            <div id="topics">
+                
+    <div id="post_detail">
+    <!--done-->
+    <div class="post">
+        <div class="postTitle">
+            <a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/vvjiang/p/7836696.html">【Chrome控制台】获取元素上绑定的事件信息以及监控事件</a>
+        </div>
+        <div id="cnblogs_post_body" class="blogpost-body"><h2>需求场景&nbsp;</h2>
+    <p>在前端开发中，偶尔需要验证下某个元素上到底绑定了哪些事件，以及监控某个元素上的事件触发情况。</p>
+    <h2>解决方案</h2>
+    <h3>普通操作</h3>
+    <p>之前面对这种情况，一般采取的措施就是在各个事件里写console.info，然后进行点击等操作触发事件，或者在控制台trigger元素上的事件，或者dispatchEvent。</p>
+    <p>这种方法比较繁琐，而且假如触发这个事件之前需要做大量操作，触发时间后需要重新来过，真的是浪费时间啊。</p>
+    <h3>神级操作</h3>
+    <p>今天偶然发现借助Chrome控制台的命令行，可以简单快捷地解决这个问题。</p>
+    <p><strong><span>获取事件信息命令： getEventListeners</span></strong></p>
+    <p>看到本页面那个精灵球了吗，接下来我们获取那个精灵球上的事件信息。</p>
+    <p>Chrome控制台输入命令：</p>
+    <div class="cnblogs_code">
+    <pre>getEventListeners(document.querySelector(".diggit"))</pre>
+    </div>
+    <p>　　得到结果：</p>
+    <p>　　　<img src="https://images2017.cnblogs.com/blog/746209/201711/746209-20171115012939421-370534348.png" alt=""></p>
+    <p>chrome控制台会输出一个事件信息数组，图中可以看出精灵球上有一个点击事件，useCapture为false表示这个事件是冒泡而不是捕获，once为false表示这个事件不会只监听一次，passive为&nbsp;false表示这个事件是很普通的事件，浏览器的默认操作不会在另一个线程中进行。</p>
+    <p>展开listener：</p>
+    <p>　　<img src="https://images2017.cnblogs.com/blog/746209/201711/746209-20171115014113046-995663967.png" alt=""></p>
+    <p>里面还会展示事件将依次在哪些元素上冒泡触发。</p>
+    <p>&nbsp;</p>
+    <p><strong>监控元素上的事件命令：&nbsp;monitorEvents 和 unmonitorEvents</strong></p>
+    <p>看名字就大概知道一个是监控事件，一个是取消监控事件。</p>
+    <p>那么同样监控一下那个精灵球：</p>
+    <div class="cnblogs_code">
+    <pre>monitorEvents(document.querySelector(".diggit"))</pre>
+    </div>
+    <p><img src="https://images2017.cnblogs.com/blog/746209/201711/746209-20171115014625827-1655880090.png" alt=""></p>
+    <p>当我运行此命令行后，将鼠标再移动到精灵球上时，控制台很快输出了大量事件。</p>
+    <p>一般情况下，这并不是我们想要的，我们更多地时候可能只想要一两种事件。</p>
+    <p>那么我们先解除监控：</p>
+    <div class="cnblogs_code">
+    <pre>unmonitorEvents(document.querySelector(".diggit"))</pre>
+    </div>
+    <p>然后可以只监控鼠标事件:</p>
+    <div class="cnblogs_code">
+    <pre>monitorEvents(document.querySelector(".diggit"),"mouse")</pre>
+    </div>
+    <p>当然我们更常用的是只监控鼠标点击事件：</p>
+    <div class="cnblogs_code">
+    <pre>monitorEvents(document.querySelector(".diggit"),"click")</pre>
+    </div>
+    <p>此时点击精灵球（你也点一下呗<img src="https://gsp0.baidu.com/5aAHeD3nKhI2p27j8IqW0jdnxx1xbK/tb/editor/images/client/image_emoticon25.png" alt="">）</p>
+    <p>现在我们可以更准确地获取到我们想要监控的事件信息了：</p>
+    <p><img src="https://images2017.cnblogs.com/blog/746209/201711/746209-20171115015911281-679821217.png" alt=""></p>
+    <p>&nbsp;所以说还是很有用的是吧，那么学到了的同时赶紧点击一下精灵球验证一下如何呢<img src="https://gsp0.baidu.com/5aAHeD3nKhI2p27j8IqW0jdnxx1xbK/tb/editor/images/client/image_emoticon25.png" alt="">。</p></div><div id="MySignature"></div>
+    <div class="clear"></div>
+    <div id="blog_post_info_block">
+    <div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/vvjiang/category/994228.html" target="_blank">开发工具</a></div>
+    <div id="EntryTag">标签: <a href="http://www.cnblogs.com/vvjiang/tag/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">开发工具</a></div>
+    <div id="blog_post_info"><div id="green_channel">
+            <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(7836696,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+                <a id="green_channel_follow" onclick="follow('1bc8dc9c-d7e4-e411-b908-9dcfd8948a71');" href="javascript:void(0);">关注我</a>
+        <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+        <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="//common.cnblogs.com/images/icon_weibo_24.png" alt=""></a>
+        <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="//common.cnblogs.com/images/wechat.png" alt=""></a>
+    </div>
+    <div id="author_profile">
+        <div id="author_profile_info" class="author_profile_info">
+                <a href="http://home.cnblogs.com/u/vvjiang/" target="_blank"><img src="//pic.cnblogs.com/face/746209/20160928214423.png" class="author_avatar" alt=""></a>
+            <div id="author_profile_detail" class="author_profile_info">
+                <a href="http://home.cnblogs.com/u/vvjiang/">韩子卢</a><br>
+                <a href="http://home.cnblogs.com/u/vvjiang/followees">关注 - 15</a><br>
+                <a href="http://home.cnblogs.com/u/vvjiang/followers">粉丝 - 49</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div id="author_profile_honor"></div>
+        <div id="author_profile_follow">
+        </div>
+    </div>
+    <div id="div_digg">
+        <div class="diggit" onclick="votePost(7836696,'Digg')">
+            <span class="diggnum" id="digg_count">6</span>
+        </div>
+        <div class="buryit" onclick="votePost(7836696,'Bury')">
+            <span class="burynum" id="bury_count">0</span>
+        </div>
+        <div class="clear"></div>
+        <div class="diggword" id="digg_tips">
+        </div>
+    </div>
+    <script type="text/javascript">
+        currentDiggType = 0;
+    </script></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"><a href="http://www.cnblogs.com/vvjiang/p/6792341.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/vvjiang/p/6792341.html" title="发布于2017-05-01 17:56">前端工具的安装</a><br></div>
+    </div>
+    
+    
+        <div class="postDesc">posted on <span id="post-date">2017-11-15 02:04</span> <a href="http://www.cnblogs.com/vvjiang/">韩子卢</a> 阅读(<span id="post_view_count">219</span>) 评论(<span id="post_comment_count">0</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=7836696" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(7836696);return false;">收藏</a></div>
+    </div>
+    <script type="text/javascript">var allowComments=true,cb_blogId=260641,cb_entryId=7836696,cb_blogApp=currentBlogApp,cb_blogUserGuid='1bc8dc9c-d7e4-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2017/11/15 2:04:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+    
+    </div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+    <div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"><script type="text/javascript" src="//mention.cnblogs.com/bundles/mention.js?id=20160615"></script>
+    <div id="commentform_title">发表评论</div>
+    <span id="tip_comment" style="color:Red"></span>
+    <p>
+    昵称：<input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="50" value="韩子卢">
+    </p>
+    <div class="commentbox_main">
+    <div class="commentbox_title">
+    <div class="commentbox_title_left">评论内容：</div>
+    <div class="commentbox_title_right">
+    <img id="ubb_quote" class="comment_icon" src="http://static.cnblogs.com/images/ubb/quote.gif" alt="引用" title="添加引用" >
+    <img id="ubb_bold" class="comment_icon" src="http://static.cnblogs.com/images/ubb/b.png" alt="粗体" title="添加粗体">
+    <img id="ubb_url" class="comment_icon" src="http://static.cnblogs.com/images/ubb/lk.png" alt="链接" title="添加链接">
+    <img id="ubb_indent" class="comment_icon" src="http://static.cnblogs.com/images/ubb/indent.png" alt="缩进" title="添加首行缩进">
+    <img id="ubb_code" class="comment_icon" src="http://static.cnblogs.com/images/ubb/InsertCode.gif" alt="代码" title="添加代码" >
+    <img id="ubb_img" class="comment_icon" src="http://static.cnblogs.com/images/ubb/img.gif" alt="图片" title="上传图片">
+    </div>
+    </div>
+    <div class="clear"></div>
+    <textarea id="tbCommentBody" class="comment_textarea"></textarea>
+    </div>
+    <p id="commentbox_opt">
+    <input id="btn_comment_submit" type="button" class="comment_btn" value="提交评论">
+    <span id="span_comment_canceledit" style="display:none"><a href="javascript:void(0);" onclick="return CancelCommentEdit()">不改了</a></span>
+    <a href="javascript:void(0);" onclick="return logout();">退出</a>
+    </p>
+    <div id="tip_comment2" style="color:Red"></div>
+    <p>
+    [Ctrl+Enter快捷键提交]
+    </p>
+    <div style="display:none">
+    <span id="comment_edit_id"></span><span id="span_parentcomment_id"></span>
+    <span id="span_parent_id"></span>
+    <span id="span_comment_replyto"></span>
+    <span id="span_comment_posted"></span>
+    </div>
+    </div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型工控、组态\仿真、建模CAD源码2018！</a><br><a href="https://www.cnblogs.com/cmt/p/8523765.html" target="_blank">【活动】2050 大会日程，5.25-5.27相聚杭州·云栖</a><br><a href="https://dnspod.cloud.tencent.com/act/yearendsales?from=IT&amp;fromSource=gwzcw.781137.781137.781137" target="_blank">【抢购】新注册用户域名抢购1元起</a><br><a href="https://cloud.tencent.com/act/campus/group/index?from=IT&amp;fromSource=gwzcw.781135.781135.781135" target="_blank">【推荐】云+校园计划邀请好友拼团有礼，奖励多多</a><br></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block"><a href="https://dnspod.cloud.tencent.com/act/weapp?fromSource=gwzcw.781158.781158.781158" target="_blank"><img width="300" height="250" src="https://images2018.cnblogs.com/news/24442/201802/24442-20180228164005211-881957482.jpg" alt="tencent0228"></a></div>
+    <div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/591267/" target="_blank">富士通发布新技术，帮助区块链验证源呼叫，防止“伪造交易源”</a><br> ·  <a href="https://news.cnblogs.com/n/591266/" target="_blank">“换工作直接和老板谈” 直聘平台到底靠不靠谱？</a><br> ·  <a href="https://news.cnblogs.com/n/591265/" target="_blank">“出行教父”李斌和他的“理想国”</a><br> ·  <a href="https://news.cnblogs.com/n/591264/" target="_blank">中国论文数超过美国，施一公：“垃圾”太多</a><br> ·  <a href="https://news.cnblogs.com/n/591261/" target="_blank">陌陌高管解读财报 付费用户增长依赖整体用户基数</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+    <div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="https://images2017.cnblogs.com/news/24442/201712/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+    <div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/575255/" target="_blank">写给自学者的入门指南</a><br> ·  <a href="http://kb.cnblogs.com/page/578690/" target="_blank">和程序员谈恋爱</a><br> ·  <a href="http://kb.cnblogs.com/page/585734/" target="_blank">学会学习</a><br> ·  <a href="http://kb.cnblogs.com/page/588938/" target="_blank">优秀技术人的管理陷阱</a><br> ·  <a href="http://kb.cnblogs.com/page/590141/" target="_blank">作为一个程序员，数学对你到底有多重要</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+        fixPostBody();
+        setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+        deliverAdT2();
+        deliverAdC1();
+        deliverAdC2();    
+        loadNewsAndKb();
+        loadBlogSignature();
+        LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+        GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+        loadOptUnderPost();
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+    </script>
+    </div>
+    
+    
+            </div>
+            <br><br><br>
+        </div>
+        <!-- left ends -->
+        <!-- right starts -->
+        <div id="right">
+            <!-- 右侧工具部分 -->
+            <div id="right_content">
+                
+                <div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+                
+                    <div id="leftcontentcontainer">
+                        <div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block"></div><div id="sidebar_categories">
+    <!--done-->
+    
+            <h1 class="catListTitle">随笔分类</h1>
+            
+                    <ul class="catList">
+                
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/vvjiang/category/791072.html">AngularJS学习笔记(3)</a></li>
+                
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/vvjiang/category/787060.html">Bootstrap基础学习(6)</a></li>
+                
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/vvjiang/category/791984.html">C#进阶系列(31)</a></li>
+                
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/vvjiang/category/778596.html">JavaScript复习(8)</a></li>
+                
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/vvjiang/category/782531.html">jQuery基础学习(13)</a></li>
+                
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/vvjiang/category/867521.html">MVC拾遗(1)</a></li>
+                
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/vvjiang/category/994228.html">开发工具(2)</a></li>
+                
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/vvjiang/category/1118741.html">浏览器机制</a></li>
+                
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_8" class="listitem" href="http://www.cnblogs.com/vvjiang/category/771960.html">重构(13)</a></li>
+                
+                    </ul>
+                
+        
+    </div></div><script type="text/javascript">loadBlogSideColumn();</script>
+                    </div>
+                
+            </div>
+            <!-- //右侧工具部分 -->
+            <div id="footer">
+                
+    Copyright ©2018 韩子卢
+            </div>
+        </div>
+        <!-- right ends -->	
+    </div>
+    </div>
+    
+    
+    
+    </body></html>
