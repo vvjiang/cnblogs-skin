@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -22,22 +23,28 @@ module.exports = {
     module: {
         rules: [{
             test: /\.css$/,
-            use:['style-loader','css-loader?sourceMap'],
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: ['css-loader'],
+            }),
         },
         {
             test: /\.less$/,
-            use: ['style-loader','css-loader?sourceMap','less-loader'],
+            use: ExtractTextPlugin.extract({
+                fallback: 'style-loader',
+                use: ['css-loader', 'less-loader'],
+            }),
         },
         ],
     },
     plugins: [
+        new ExtractTextPlugin({ filename: '[name].[contenthash].css', allChunks: false }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-    ],
-    plugins: [
         new HtmlWebpackPlugin({
             // template: './template/list.html',
             template: './template/read.html',
+            // template: './template/categoryList.html',
             filename: 'demo.html',
             minify: {
                 collapseWhitespace: true,

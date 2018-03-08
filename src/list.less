@@ -2,12 +2,12 @@
 @OrnamentColor:#eee;//点缀色
 @DisableColor:#ccc;//表示禁用的颜色
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1200px) {
     #topics {
         width: 100%;
     }
     #right{
-        position: fixed;
+        position: absolute;
         left: 32px;
         top: 32px;
         width: 32px;
@@ -19,13 +19,12 @@
         display: none;
         position: absolute;
         top:32px;
-        width: 200px;
     }
     #right:hover #sidebar_categories{
         display: block;
     }
 }
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1200px) {
     #topics {
         width: 800px;
         margin: 0 auto;
@@ -34,6 +33,7 @@
         position: fixed;
         left: 0;
         top: 250px;
+        width: 200px;
     }
 }
 body{
@@ -125,6 +125,7 @@ body{
     background-color: #eee;
     border: 2px solid #eee;
     border-radius: 4px;
+    width: 160px;
 }
 .catListTitle{
     font-size: 18px;
