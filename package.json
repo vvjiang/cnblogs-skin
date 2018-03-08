@@ -4,7 +4,8 @@
   "description": "一个萌系博客园皮肤",
   "main": "app.js",
   "scripts": {
-    "start": "webpack-dev-server"
+    "dev": "webpack-dev-server",
+    "build":"webpack"
   },
   "repository": {
     "type": "git",

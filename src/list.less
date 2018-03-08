@@ -1,0 +1,160 @@
+@ThemeColor:#5bf;//主题色
+@OrnamentColor:#eee;//点缀色
+@DisableColor:#ccc;//表示禁用的颜色
+
+@media screen and (max-width: 800px) {
+    #topics {
+        width: 100%;
+    }
+    #right{
+        position: fixed;
+        left: 32px;
+        top: 32px;
+        width: 32px;
+        height: 32px;
+        display: block;
+        background-image: linear-gradient(#fff 0%,#fff 20%,#55bbff 20%,#55bbff 40%,#fff 40%,#fff 60%,#5bf 60%,#55bbff 80%,#fff 80%);
+    }
+    #sidebar_categories{
+        display: none;
+        position: absolute;
+        top:32px;
+        width: 200px;
+    }
+    #right:hover #sidebar_categories{
+        display: block;
+    }
+}
+@media screen and (min-width: 800px) {
+    #topics {
+        width: 800px;
+        margin: 0 auto;
+    }
+    #right{
+        position: fixed;
+        left: 0;
+        top: 250px;
+    }
+}
+body{
+    margin:0;
+    padding: 0;
+}
+
+/* 页头 */
+#banner{
+    background-color: #5bf;
+    overflow: hidden;
+}
+//头像
+.headermaintitle{
+    position: relative;
+    background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_1.jpg);
+    border: 2px solid @OrnamentColor;
+    border-radius: 50%;
+    height: 97px;
+    margin: 20px auto;
+    text-align: center;
+    width: 97px;
+    display: block;
+}
+//名字
+.headermaintitle::after{
+    content: "韩子卢";
+    color: @OrnamentColor;
+    font-weight: bold;
+    text-decoration: none;
+    position: absolute;
+    top: 102px;
+    left: 25px;
+}
+//副标题
+.headerDis{
+    text-align: center;
+    color: @DisableColor;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+//博客链接列表
+#mylinks{
+    text-align: center;
+    background-color:@ThemeColor;
+}
+//博客链接项
+.menu{
+    color: @OrnamentColor;
+    display: inline-block;
+    line-height: 3;
+    text-decoration: none;
+    padding: 0 10px;
+}
+
+.day{
+    border-bottom: 1px solid #ccc;
+    padding: 24px 8px 0;
+}
+
+.dayTitle{
+    float: right;
+    font-size: 14px;
+    color: @DisableColor;
+}
+.postTitle{
+    margin-bottom: 8px;
+}
+.postTitle>a{
+    text-decoration: none;
+    color: @ThemeColor;
+    font-weight: bold;
+}
+.postCon{
+    color: #ccc;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+//隐藏阅读全文
+.c_b_p_desc_readmore{
+    display: none;
+}
+//隐藏发表信息
+.postDesc{
+    display: none;
+}
+#sidebar_categories{
+    padding: 10px 20px;
+    background-color: #eee;
+    border: 2px solid #eee;
+    border-radius: 4px;
+}
+.catListTitle{
+    font-size: 18px;
+    color: #ccc;
+}
+.catList{
+    list-style-type: none;
+    padding: 0;
+}
+.catListItem>a{
+    color: @ThemeColor;
+    text-decoration: none;
+    line-height: 2;
+    font-size: 14px;
+}
+//隐藏页脚
+#footer{
+    display: none;
+}
+//翻页
+.topicListFooter{
+    margin-top: 16px;
+    text-align: center;
+}
+.topicListFooter a{
+    text-decoration: none;
+    background-color: @ThemeColor;
+    color: #fff;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 14px;
+}
+
