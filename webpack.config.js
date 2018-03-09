@@ -8,7 +8,16 @@ const pathsToClean = [
     'build',
 ];
 
-module.exports = {
+// const htmlNames=[
+//     'categoryList',
+//     'index',
+//     'read'
+// ]
+const htmlNames = [
+    'index',
+]
+
+const config = {
     entry: ['./app.js'],
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -18,7 +27,7 @@ module.exports = {
         port: 8686,
         open: true,
         compress: true,
-        index: 'demo.html',
+        index: 'index.html',
     },
     module: {
         rules: [{
@@ -41,16 +50,29 @@ module.exports = {
         new ExtractTextPlugin({ filename: '[name].[contenthash].css', allChunks: false }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new HtmlWebpackPlugin({
-            // template: './template/list.html',
-            template: './template/read.html',
-            // template: './template/categoryList.html',
-            filename: 'demo.html',
-            minify: {
-                collapseWhitespace: true,
-            },
-            hash: true,
-        }),
+        // new HtmlWebpackPlugin({
+        //     // template: './template/list.html',
+        //     template: './template/read.html',
+        //     // template: './template/categoryList.html',
+        //     filename: 'index.html',
+        //     minify: {
+        //         collapseWhitespace: true,
+        //     },
+        //     hash: true,
+        // }),
         new CleanWebpackPlugin(pathsToClean),
     ]
 };
+
+htmlNames.forEach((pageName) => {
+    const htmlPlugin = new HtmlWebpackPlugin({
+        filename: `${pageName}.html`,
+        template: `./template/${pageName}.html`,
+        chunks: [pageName, 'commons'],
+        hash: true,
+        inject: "head"
+    });
+    config.plugins.push(htmlPlugin);
+})
+console.info(config)
+module.exports = config;
