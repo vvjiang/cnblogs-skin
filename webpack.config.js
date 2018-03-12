@@ -8,13 +8,10 @@ const pathsToClean = [
     'build',
 ];
 
-// const htmlNames=[
-//     'categoryList',
-//     'index',
-//     'read'
-// ]
-const htmlNames = [
+const htmlNames=[
+    'categoryList',
     'index',
+    'read'
 ]
 
 const config = {
@@ -50,16 +47,6 @@ const config = {
         new ExtractTextPlugin({ filename: '[name].[contenthash].css', allChunks: false }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        // new HtmlWebpackPlugin({
-        //     // template: './template/list.html',
-        //     template: './template/read.html',
-        //     // template: './template/categoryList.html',
-        //     filename: 'index.html',
-        //     minify: {
-        //         collapseWhitespace: true,
-        //     },
-        //     hash: true,
-        // }),
         new CleanWebpackPlugin(pathsToClean),
     ]
 };
@@ -68,11 +55,9 @@ htmlNames.forEach((pageName) => {
     const htmlPlugin = new HtmlWebpackPlugin({
         filename: `${pageName}.html`,
         template: `./template/${pageName}.html`,
-        chunks: [pageName, 'commons'],
         hash: true,
         inject: "head"
     });
     config.plugins.push(htmlPlugin);
 })
-console.info(config)
 module.exports = config;
