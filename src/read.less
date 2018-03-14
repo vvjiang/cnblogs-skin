@@ -1,6 +1,7 @@
 @ThemeColor:#5bf;//主题色
 @OrnamentColor:#eee;//点缀色
 @DisableColor:#ccc;//表示禁用的颜色
+
 #post_detail{
   padding: 24px;
   font-size: 14px;
@@ -99,10 +100,12 @@
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 14px;
+
+  &:last-child{
+    color: #f44;
+  }
 }
-.comment_actions>a:last-child{
-  color: #f44;
-}
+
 .comment_date{
   color: #ccc;
   font-size: 14px;
@@ -110,16 +113,17 @@
 .comment_vote{
   margin-top: 32px;
   float: right;
-}
-.comment_vote>a{
-  color:@ThemeColor;
-  text-decoration: none;
-  display: inline-block;
-  border: 1px solid;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 12px;
-  margin: 0 8px;
+
+  &>a{
+    color:@ThemeColor;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    margin: 0 8px;
+  }
 }
 .comment_digg::before{
   content: "";

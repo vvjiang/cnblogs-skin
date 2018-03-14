@@ -14,14 +14,17 @@
         height: 32px;
         display: block;
         background-image: linear-gradient(#fff 0%,#fff 20%,#55bbff 20%,#55bbff 40%,#fff 40%,#fff 60%,#5bf 60%,#55bbff 80%,#fff 80%);
+
+        &:hover{
+            #sidebar_categories{
+                display: block;
+            }
+        }
     }
     #sidebar_categories{
         display: none;
         position: absolute;
         top:32px;
-    }
-    #right:hover #sidebar_categories{
-        display: block;
     }
 }
 @media screen and (min-width: 1200px) {
@@ -57,17 +60,19 @@ body{
     text-align: center;
     width: 97px;
     display: block;
+
+    //名字
+    &::after{
+        content: "韩子卢";
+        color: @OrnamentColor;
+        font-weight: bold;
+        text-decoration: none;
+        position: absolute;
+        top: 102px;
+        left: 25px;
+    }
 }
-//名字
-.headermaintitle::after{
-    content: "韩子卢";
-    color: @OrnamentColor;
-    font-weight: bold;
-    text-decoration: none;
-    position: absolute;
-    top: 102px;
-    left: 25px;
-}
+
 //副标题
 .headerDis{
     text-align: center;
@@ -101,11 +106,12 @@ body{
 }
 .postTitle{
     margin-bottom: 8px;
-}
-.postTitle>a{
-    text-decoration: none;
-    color: @ThemeColor;
-    font-weight: bold;
+
+    &>a{
+        text-decoration: none;
+        color: @ThemeColor;
+        font-weight: bold;
+    }
 }
 .postCon{
     color: #ccc;
@@ -126,7 +132,7 @@ body{
     border: 1px solid #5bf;
     border-radius: 4px;
     width: 160px;
-    box-shadow: 5px 5px 10px #eee;
+    box-shadow: 5px 5px 10px rgba(200,200,200,0.5);
 }
 .catListTitle{
     font-size: 18px;
@@ -150,13 +156,13 @@ body{
 .topicListFooter{
     margin-top: 16px;
     text-align: center;
-}
-.topicListFooter a{
-    text-decoration: none;
-    background-color: @ThemeColor;
-    color: #fff;
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 14px;
-}
 
+    a{
+        text-decoration: none;
+        background-color: @ThemeColor;
+        color: #fff;
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-size: 14px;
+    }
+}
