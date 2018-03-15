@@ -1,17 +1,16 @@
-<!DOCTYPE html>
 <html lang="zh-cn"><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>【C#进阶系列】01 CLR的执行模型——一个Hello World的故事 - 韩子卢 - 博客园</title>
+    <title>【Webpack的使用指南 01】Webpack入门 - 韩子卢 - 博客园</title>
     <link type="text/css" rel="stylesheet" href="http://www.cnblogs.com/bundles/blog-common.css?v=-hy83QNg62d4qYibixJzxMJkbf1P9fTBlqv7SK5zVL01">
+    <link type="text/css" rel="stylesheet" href="http://www.cnblogs.com/blog/customcss/260641.css?v=oREOSExcJeed95aDm38%2bI1mlpLk%3d">
     <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="http://www.cnblogs.com/skins/blank/bundle-blank-mobile.css?v=d9LctKHRIQp9rreugMcQ1-UJuq_j1fo0GZXTXj8Bqrk1">
     <link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/vvjiang/rss">
     <link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/vvjiang/rsd.xml">
     <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/vvjiang/wlwmanifest.xml">
-    <script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="//common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="http://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
     <script type="text/javascript">var currentBlogApp = 'vvjiang', cb_enable_mathjax=false;var isLogined=true;</script>
-    <script src="http://www.cnblogs.com/bundles/blog-common.js?v=O-NTEmnhjbG7lSYLc3yeqkrVxfMJyY9iXf4xyjlKikw1" type="text/javascript"></script>
-    <link href="main.885dfa24fbb300fae6809c1c2c24c5dc.css?06ce52842fd95141cb24" rel="stylesheet"><script type="text/javascript" src="main.js?06ce52842fd95141cb24"></script></head>
+    <link href="main.cc32a6449e7e1366f6e5498f3760f5c5.css?4b316c62069cab0e0c4a" rel="stylesheet"><script type="text/javascript" src="main.js?4b316c62069cab0e0c4a"></script></head>
     <body>
     <a name="top"></a>
     
@@ -43,93 +42,175 @@
     <!--done-->
     <div class="post">
         <div class="postTitle">
-            <a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/vvjiang/p/5226207.html">【C#进阶系列】01 CLR的执行模型——一个Hello World的故事</a>
+            <a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/vvjiang/p/8567909.html">【Webpack的使用指南 01】Webpack入门</a>
         </div>
-        <div id="cnblogs_post_body" class="blogpost-body"><p>好吧，废话少说，先上一章Hello World图：</p>
-    <p><img src="https://images2015.cnblogs.com/blog/746209/201602/746209-20160228225224882-1085303039.png" alt=""></p>
-    <p>我们有了一个Hello world程序，如此之简单，再加上我今天没有用汉字编程o(&gt;﹏&lt;)o，所以一切很简单明了。</p>
-    <p><strong>故事开始：</strong></p>
-    <p><strong>编译：</strong></p>
-    <p>一个程序写完肯定要编译，以前什么C啊什么的都是编译成本机的CPU指令，但是我们的C#不是。</p>
-    <p>C#，VB.NET都会把它们编译成<strong>托管模块，</strong><span style="color: #000000;">托管模块在一个标准的可移植的PE文件中。（<span style="color: #339966;">那些懵懂的少年肯定慌了，这是什么鬼，又是托管模块又是PE文件的。莫慌，所有你听不懂的高大上的术语其实都很简单，你现在不需要懂，听我慢慢道来</span>）</span><strong><br></strong></p>
-    <p>所谓PE文件，就是可移植执行体，简单来讲就是.EXE和.DLL这种鬼东西（<span style="color: #339966;">这个exe和C语言生成的有区别的</span>）。这个PE文件里的托管模块，你可以当做一个对象，对象里有四个属性，一个PE头（描述文件），一个CLR头（描述这个对象的整体的一些信息，比如main入口），元数据（这个很关键，一种元数据表包含源代码中定义的那些那些类型和成员的描述信息，另一种包含引用的类型和成员的描述信息），IL代码（就是你的源代码被编译后的代码，又称中间语言）。</p>
-    <p>如果觉得麻烦，前面两个属性你可以忘掉了，记住后面两个就好：元数据和IL代码（简单来讲，就是代码的描述信息和编译后的代码）。</p>
-    <p>但是一个PE文件可不只一个托管模块，它可以由几个托管模块组成。编译器会把多个托管模块和资源文件合并成一个包含清单的程序集，这才是最后的PE文件。</p>
-    <p><strong>运行：</strong></p>
-    <p>但是这个托管模块也就是PE文件并不能直接运行，他需要CLR。</p>
-    <p><span style="color: #ff0000;"><em>CLR常用简写词语，CLR是公共语言运行库(Common Language Runtime)和Java<a href="http://baike.baidu.com/view/1132.htm" target="_blank"><span style="color: #ff0000;">虚拟机</span></a>一样也是一个运行时环境，它负责资源管理（<a href="http://baike.baidu.com/view/549628.htm" target="_blank"><span style="color: #ff0000;">内存分配</span></a>和垃圾收集等），并保证应用和底层操作系统之间必要的分离。CLR存在两种不同的翻译名称：公共语言运行库和公共语言运行时。</em></span></p>
-    <p>此描述及以后的描述均来自百度百科，我懒得手打。</p>
-    <p>CLR的核心功能包括：内存管理，程序集加载，安全性，异常处理和线程同步。</p>
-    <p>这个东西又称为公共语言运行时。</p>
-    <p>前面的说到不能直接运行的时候，这里有懵懂的少年肯定说，我生成的exe文件明明可以直接运行。</p>
-    <p>这是因为你的电脑上安装了.NET Framework。当你在打开exe程序的时候你的进程的主线程会调用MSCorEE.dll的一个方法，这个方法会初始化CLR，再加载exe程序集，然后调用入口方法即main函数。</p>
-    <p>所以说实际上你的代码运行是需要在CLR上的。</p>
-    <p>那么CLR到底是怎么玩我们的Hello world的？</p>
-    <p>它会在运行时编译我们的IL代码。（先别吐槽为什么要编译两次，后面有讲）</p>
-    <p>早在Main函数执行之前，CLR就会检测Main的代码所引用的所有类型，然后生成了一个内部的数据结构来管理引用类型的访问。</p>
-    <p>在这个内部结构中，每个类型比如Console的每个方法都会有一个入口，每个入口都有一个地址（这里叫地址A吧），这个地址A就可以找到方法的实现代码。</p>
-    <p>而在这个内部数据结构初始化的时候，所有的这些入口的地址都会被设置成一个叫JITCompiler的函数。</p>
-    <p>就比如上面图中的hello world代码第一句，CLR在执行这句代码的时候会跑进JITCompiler这个函数中，这是内部操作：</p>
-    <ol>
-    <li><span style="color: #339966;">会跑进托管模块，然后根据元数据匹配类名和方法名，获取你要执行的Console这个类里面Writeline这个函数在IL代码里面的地址B。</span></li>
-    <li><span style="color: #339966;">然后编译这段IL代码变成本机的CPU指令放到一块内存空间中，地址为C。（在这个编译之前还会进行验证哦，验证这个IL代码是否安全）</span></li>
-    <li><span style="color: #339966;">接着修改元数据中地址A的值变为地址C的值。</span></li>
-    <li><span style="color: #339966;">最后跳转到地址C开始执行地址C的cpu指令。</span></li>
+        <div id="cnblogs_post_body" class="blogpost-body cnblogs-markdown"><p>使用Webpack有一段时间了，但是感觉之前学的用的都比较零散，所以在这里整理一下Webpack的使用知识，从入门到进阶。</p>
+    <h2 id="创建项目">创建项目</h2>
+    <p>首先创建最简单的一个项目</p>
+    <pre><code class="hljs swift">npm <span class="hljs-keyword">init</span></code></pre>
+    <p>得到以下项目结构：<br>
+    <img src="//upload-images.jianshu.io/upload_images/7197332-1680d40d6461f856.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目结构"></p>
+    <h2 id="安装webpack">安装Webpack</h2>
+    <p>先来个全局的</p>
+    <pre><code class="hljs matlab">npm <span class="hljs-built_in">i</span> webpack -g</code></pre>
+    <p>再安装项目中的</p>
+    <pre><code class="hljs matlab">npm <span class="hljs-built_in">i</span> webpack --save-dev</code></pre>
+    <p>此时项目结构为，且注意到package.json中自动生成了对webpack的开发依赖：<br>
+    <img src="//upload-images.jianshu.io/upload_images/7197332-61b1ba3bbccf5380.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目结构"></p>
+    <h2 id="webpack的打包初体验">Webpack的打包初体验</h2>
+    <p>现在让我们用Webpack来打包文件，那么新建一个js文件如下：<br>
+    <img src="//upload-images.jianshu.io/upload_images/7197332-d1c8721e0757f89f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="简单打包"><br>
+    然后执行命令</p>
+    <pre><code class="hljs dts">webpack .<span class="hljs-meta-keyword">/src/</span>app.js .<span class="hljs-meta-keyword">/build/</span>bundle.js</code></pre>
+    <p>那么就会在根目录下生成一个build文件夹，里面会有一个bundle文件<br>
+    <img src="//upload-images.jianshu.io/upload_images/7197332-0f4c0f6ed10f68b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="打包后的结构"></p>
+    <p>可以查看bundle.js的js文件信息，里面的作用就是用了一个立即执行函数，然后将app.js的内容封装成一个函数，作为参数传进内部执行。这样就可以来分析处理依赖什么的了。<br>
+    原理就是这个样子，具体的可以自己看一下底层代码就行，对于这种只打包一个文件的bundle.js，代码也很好看懂。</p>
+    <p>每次打包都这样输入一大串命令明显很烦，所以需要用到package.json的脚本功能，很简单，修改它为：</p>
+    <pre><code class="hljs json">{
+      "<span class="hljs-attr">name</span>": <span class="hljs-string">"webpack-demo"</span>,
+      "<span class="hljs-attr">version</span>": <span class="hljs-string">"1.0.0"</span>,
+      "<span class="hljs-attr">description</span>": <span class="hljs-string">"webpack的使用demo"</span>,
+      "<span class="hljs-attr">main</span>": <span class="hljs-string">"index.js"</span>,
+      "<span class="hljs-attr">author</span>": <span class="hljs-string">"韩子卢"</span>,
+      "<span class="hljs-attr">license</span>": <span class="hljs-string">"MIT"</span>,
+      "<span class="hljs-attr">devDependencies</span>": {
+        "<span class="hljs-attr">webpack</span>": <span class="hljs-string">"^3.10.0"</span>
+      },
+      "<span class="hljs-attr">scripts</span>": {
+        "<span class="hljs-attr">build</span>": <span class="hljs-string">"webpack ./src/app.js ./build/bundle.js"</span>
+      }
+    }</code></pre>
+    <p>对比之前的文件内容，明白玩法就好了，然后我们如果再想打包，那么运行命令：</p>
+    <pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> run build</code></pre>
+    <p>也行，当然命令不一定要用build，把在package.json 里把build改为dota都行，此时运行的命令自然是：</p>
+    <pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> run dota</code></pre>
+    <p>这样做的好处是，简单方便，一些命令就不用记下来了，其次其他人很容易知道这个项目中如何进行打包。</p>
+    <h2 id="webpack命令的一些常用参数">Webpack命令的一些常用参数</h2>
+    <table>
+    <thead>
+    <tr class="header">
+    <th>参数</th>
+    <th align="center">作用</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>-p</td>
+    <td align="center">对打包的文件进行压缩</td>
+    </tr>
+    <tr class="even">
+    <td>-d</td>
+    <td align="center">提供source map，方便调式代码</td>
+    </tr>
+    <tr class="odd">
+    <td>--watch</td>
+    <td align="center">监控源文件，如果源文件做了修改，那么立马生成新的打包文件</td>
+    </tr>
+    </tbody>
+    </table>
+    <h2 id="webpack的配置文件">webpack的配置文件</h2>
+    <p>一般使用webpack都不会直接用webpack命令来生成某个脚本，因为它还有些强大的功能不好在简单命令里面实现，这个时候就需要用到webpack的配置文件了。</p>
+    <p>此时在根目录下新增一个文件：</p>
+    <p><img src="//upload-images.jianshu.io/upload_images/7197332-27809b8508dcc616.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="webpack的配置文件"></p>
+    <p>然后命令行运行：</p>
+    <pre><code class="hljs">webpack</code></pre>
+    <p>此时webpack会自动检索根目录下的webpack.config.js文件，然后根据这个文件中的配置去打包文件。<br>
+    接下来我们分析一下webpack.config.js的代码：</p>
+    <pre><code class="hljs typescript"><span class="hljs-keyword">module</span>.exports = {
+      entry: <span class="hljs-string">'./src/app.js'</span>,
+      output: {
+        filename: <span class="hljs-string">'./build/bundle.js'</span>
+      }
+    };</code></pre>
+    <p>module.exports为导出对象，webpack会直接读取这个导出对象来打包代码，所以我们将打包的配置直接赋值给这个对象。<br>
+    entry代表入口，即打包的时候从哪个文件开始打包，<br>
+    output代表输出配置，即打包后生成的文件配置，其中的filename代表文件名。<br>
+    上面的打包配置可以简单理解为，从'./src/app.js'文件开始打包，生成一个文件名为bundle.js的文件，它的路径是'./build/bundle.js'。</p>
+    <p>这里我们也可以这么写：</p>
+    <pre><code class="hljs typescript"><span class="hljs-keyword">module</span>.exports = {
+      entry: <span class="hljs-string">'./src/app.js'</span>,
+      output: {
+          path: __dirname + <span class="hljs-string">'/build'</span>,
+          filename: <span class="hljs-string">'bundle.js'</span>
+      }
+    };</code></pre>
+    <p>注意，这里的path代表文件的输出目录，当我们用了path之后，filename就直接写文件名，而不要再写路径了，因为新的路径是path来的，如果还按照原来的，会在build文件夹下再生成一个build文件夹。<br>
+    此时看到配置中还出现了一个__dirname变量，这个变量我们也没赋值，放的是什么呢?<br>
+    __dirname实际上是webpack在编译时自己内部加上的一个变量，它代表webpack.config.js这个文件在电脑中的绝对路径。<br>
+    想到这么玩的好处了吗，比如利用在filename中加相对路径可以直接生成文件到电脑中的发布网站下面。</p>
+    <h2 id="webpack的插件">webpack的插件</h2>
+    <p>webpack的功能强大有一部分的原因就是插件的功能多且强。</p>
+    <p>然而我们在使用插件前需要明白一点，我们使用的目的是为了解决问题，而不是为了使用而使用。<br>
+    现在我们项目的问题是什么？<br>
+    首先没有html，这个简单，直接新建一个html即可，不需要插件。</p>
+    <p><img src="//upload-images.jianshu.io/upload_images/7197332-21cb13d7cb8da358.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="加入html后的结构"></p>
+    <p>但是如果这样玩的话，每次生成的js文件名都是bundle.js，那么网站就会形成缓存，导致明明发布了也没有效果啊。<br>
+    解决这个问题的办法是在js后面加版本号，比如bundle.v1_1_0.js，我们可以手工操作进行修改，但是总有忘记的时候，这样就会出错。<br>
+    那么问题就这么产生了，解决这个问题的插件就是：<a href="https://github.com/jantimon/html-webpack-plugin">html-webpack-plugin</a>。<br>
+    接下来让我们来开始使用这个插件。<br>
+    首先webpack内部没有集成这个插件，需要我们去安装：</p>
+    <pre><code class="hljs matlab">npm <span class="hljs-built_in">i</span> html-webpack-plugin --save-dev</code></pre>
+    <p>然后删掉index.html，并修改webpack.config.js为：</p>
+    <pre><code class="hljs typescript"><span class="hljs-keyword">var</span> HtmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'html-webpack-plugin'</span>);
     
-    </ol>
-    <p>那么如果我们第二次去执行Writeline函数呢？此时内部结构中Writeline函数入口的地址指向的已经是编译好的CPU指令的地址了，所以也就不会去执行JITCompiler这个函数。</p>
-    <p>千万不要认为这样一定会很慢哦，除了第一次运行时JITCompiler的编译可能需要花费掉编译和优化的时间，后来执行的就是本地CPU指令哦。再加上JITCompiler的这个编译会根据你的机器的CPU不同可能会去生成一些专属于本CPU的特殊指令去优化IL代码，有的这种托管程序可能还要比非托管程序快。</p>
-    <p>好了，本章的精髓就是上面这些了。</p>
-    <p>现在我们想想为什么要编译两次？</p>
-    <p>因为这样的话，无论用C#、VB、F#这些东西你都可以生成一样的包含IL代码的托管程序集，然后这个托管程序集在CLR上运行，也就是说可以混合写代码，一个C#代码可以调用VB代码的DLL，用最适合的语言做最适合的事情。</p>
-    <p>并且在CLR监视之下执行的IL代码因为在执行前会进行安全校验，所以会提高程序的健壮性和可靠性。</p></div><div id="MySignature"></div>
+    <span class="hljs-keyword">module</span>.exports = {
+      entry: <span class="hljs-string">'./src/app.js'</span>,
+      output: {
+        path: __dirname + <span class="hljs-string">'/build'</span>,
+        filename: <span class="hljs-string">'bundle.js'</span>
+      },
+      plugins: [<span class="hljs-keyword">new</span> HtmlWebpackPlugin()]
+    };</code></pre>
+    <p>此时运行</p>
+    <pre><code class="hljs">webpack</code></pre>
+    <p>可以发现在我们的输出目录build下还生成了一个index.html,里面还自动引入了我们生成的的bundle.js。<br>
+    <img src="//upload-images.jianshu.io/upload_images/7197332-49712c9ab9a23252.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="生成html文件"></p>
+    <p>可是这样并没有解决我们的问题，那么让我们来使用html-webpack-plugin的更多功能，修改webpack.config.js文件为：</p>
+    <pre><code class="hljs typescript"><span class="hljs-keyword">var</span> HtmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'html-webpack-plugin'</span>);
+    
+    <span class="hljs-keyword">module</span>.exports = {
+      entry: <span class="hljs-string">'./src/app.js'</span>,
+      output: {
+        path: __dirname + <span class="hljs-string">'/build'</span>,
+        filename: <span class="hljs-string">'bundle.js'</span>
+      },
+      plugins: [
+        <span class="hljs-keyword">new</span> HtmlWebpackPlugin({
+          title: <span class="hljs-string">"Webpack Demo"</span>,
+          filename: <span class="hljs-string">'demo.html'</span>,
+          minify: {
+            collapseWhitespace: <span class="hljs-literal">true</span>,
+          },
+          hash: <span class="hljs-literal">true</span>
+        })
+      ]
+    };</code></pre>
+    <p>生成后发现在输出目录生成的html文件名变味了demo.html，html的标题成了Webpack Demo，引用的js有了hash值，并且html还被压缩了，去掉了里面所有可折叠的空白元素。</p>
+    <p>这样就行了吗？<br>
+    不够的，实际的开发过程中我们遇到html结构没有这么简单，会需要更多的html结构。<br>
+    就比如我想在生成的html中引入一个bootstrap的css。<br>
+    这又是一个新的问题，然而html-webpack-plugin的模板功能可以解决这个问题。<br>
+    新建一个模板html文件template.html，<br>
+    <img src="//upload-images.jianshu.io/upload_images/7197332-9850d024e2885338.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="模板文件.png"></p>
+    <p>修改webpack.config.js为：<br>
+    <img src="//upload-images.jianshu.io/upload_images/7197332-06bb21fc6b845f5e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+    <p>这样就会以index.html文件为模板生成最后的html文件，当然html-webpack-plugin还有更多的功能，这里就不细说了。</p>
+    </div><div id="MySignature"></div>
     <div class="clear"></div>
     <div id="blog_post_info_block">
-    <div id="BlogPostCategory">分类: <a href="/categoryList.html" target="_blank">C#进阶系列</a></div>
-    <div id="EntryTag">标签: <a href="http://www.cnblogs.com/vvjiang/tag/C%23%E8%BF%9B%E9%98%B6%E7%B3%BB%E5%88%97/">C#进阶系列</a></div>
-    <div id="blog_post_info"><div id="green_channel">
-            <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(5226207,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
-                <a id="green_channel_follow" onclick="follow('1bc8dc9c-d7e4-e411-b908-9dcfd8948a71');" href="javascript:void(0);">关注我</a>
-        <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
-        <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="//common.cnblogs.com/images/icon_weibo_24.png" alt=""></a>
-        <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="//common.cnblogs.com/images/wechat.png" alt=""></a>
+    <div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/vvjiang/category/1178148.html" target="_blank">前端工程化</a></div>
+    <div id="EntryTag"></div>
+    <div id="blog_post_info">
     </div>
-    <div id="author_profile">
-        <div id="author_profile_info" class="author_profile_info">
-                <a href="http://home.cnblogs.com/u/vvjiang/" target="_blank"><img src="//pic.cnblogs.com/face/746209/20160928214423.png" class="author_avatar" alt=""></a>
-            <div id="author_profile_detail" class="author_profile_info">
-                <a href="http://home.cnblogs.com/u/vvjiang/">韩子卢</a><br>
-                <a href="http://home.cnblogs.com/u/vvjiang/followees">关注 - 15</a><br>
-                <a href="http://home.cnblogs.com/u/vvjiang/followers">粉丝 - 49</a>
-            </div>
-        </div>
-        <div class="clear"></div>
-        <div id="author_profile_honor"></div>
-        <div id="author_profile_follow">
-        </div>
-    </div>
-    <div id="div_digg">
-        <div class="diggit" onclick="votePost(5226207,'Digg')">
-            <span class="diggnum" id="digg_count">4</span>
-        </div>
-        <div class="buryit" onclick="votePost(5226207,'Bury')">
-            <span class="burynum" id="bury_count">0</span>
-        </div>
-        <div class="clear"></div>
-        <div class="diggword" id="digg_tips">
-        </div>
-    </div>
-    <script type="text/javascript">
-        currentDiggType = 0;
-    </script></div>
     <div class="clear"></div>
-    <div id="post_next_prev"><a href="/read.html" class="p_n_p_prefix">« </a> 上一篇：<a href="/read.html" title="发布于2016-02-26 20:37">【C#进阶系列】00 序</a><br><a href="http://www.cnblogs.com/vvjiang/p/5229545.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/vvjiang/p/5229545.html" title="发布于2016-03-01 01:35">【C#进阶系列】02 PE文件，程序集，托管模块，元数据——还是那个Hello world</a><br></div>
+    <div id="post_next_prev"><a href="http://www.cnblogs.com/vvjiang/p/7836696.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/vvjiang/p/7836696.html" title="发布于2017-11-15 02:04">【Chrome控制台】获取元素上绑定的事件信息以及监控事件</a><br><a href="http://www.cnblogs.com/vvjiang/p/8571983.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/vvjiang/p/8571983.html" title="发布于2018-03-15 10:11">【Webpack的使用指南 02】Webpack的常用解决方案</a><br></div>
     </div>
     
     
-        <div class="postDesc">posted on <span id="post-date">2016-02-29 01:21</span> <a href="http://www.cnblogs.com/vvjiang/">韩子卢</a> 阅读(<span id="post_view_count">508</span>) 评论(<span id="post_comment_count">2</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5226207" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(5226207);return false;">收藏</a></div>
+        <div class="postDesc">posted on <span id="post-date">2018-03-14 15:28</span> <a href="http://www.cnblogs.com/vvjiang/">韩子卢</a> 阅读(<span id="post_view_count">153</span>) 评论(<span id="post_comment_count">9</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=8567909" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(8567909);return false;">收藏</a></div>
     </div>
-    <script type="text/javascript">var allowComments=true,cb_blogId=260641,cb_entryId=5226207,cb_blogApp=currentBlogApp,cb_blogUserGuid='1bc8dc9c-d7e4-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2016/2/29 1:21:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+    <script src="//common.cnblogs.com/highlight/9.1.0/highlight.min.js?id=20160127"></script><script>markdown_highlight();</script><script type="text/javascript">var allowComments=true,cb_blogId=260641,cb_entryId=8567909,cb_blogApp=currentBlogApp,cb_blogUserGuid='1bc8dc9c-d7e4-e411-b908-9dcfd8948a71',cb_entryCreatedDate='2018/3/14 15:28:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
     
     </div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
     <!--done-->
@@ -141,34 +222,124 @@
             <div class="feedbackItem">
                 <div class="feedbackListSubtitle">
                     <div class="feedbackManage">
-                        &nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3368490,'rDV45bnjWJ+H8M3l+iok2f3uYaBs/MQ92U9PwLE/oo1ZFo7csiWUbQ==')">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3368490,'rDV45bnjWJ+H8M3l+iok2f3uYaBs/MQ92U9PwLE/oo1ZFo7csiWUbQ==')">引用</a><a href="javascript:void(0);" onclick="return DelComment(3368490,this, 5226207)">删除</a></span>
+                        &nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3923291,'KYW1DMOX84hWsPtsU7T6XQDtAfkFny7/9fIyMq8ZpBadgkmeL6q60g==')">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3923291,'KYW1DMOX84hWsPtsU7T6XQDtAfkFny7/9fIyMq8ZpBadgkmeL6q60g==')">引用</a><a href="javascript:void(0);" onclick="return DelComment(3923291,this, 8567909)">删除</a></span>
                     </div>
-                     <span class="comment_date">2016-02-29 11:24</span> | <a id="a_comment_author_3368490" href="http://www.cnblogs.com/poplau/" target="_blank">poplau</a> <a href="http://msg.cnblogs.com/send/poplau" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+                     <span class="comment_date">2018-03-15 09:36</span> | <a id="a_comment_author_3923291" href="http://www.cnblogs.com/fuhai/" target="_blank">海之殇</a> <a href="http://msg.cnblogs.com/send/%E6%B5%B7%E4%B9%8B%E6%AE%87" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
                 </div>
                 <div class="feedbackCon">
-                    <div id="comment_body_3368490" class="blog_comment_body">简单明了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3368490,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3368490,'Bury',this)">反对(0)</a></div>
+                    <div id="comment_body_3923291" class="blog_comment_body">你右边的精灵球有诱导用户推荐的嫌疑，挺讨厌这类的插件，应该明确标明是推荐按钮</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3923291,'Digg',this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3923291,'Bury',this)">反对(0)</a></div><span id="comment_3923291_avatar" style="display:none;">http://pic.cnblogs.com/face/797978/20161024093002.png</span>
                 </div>
             </div>
         
             <div class="feedbackItem">
                 <div class="feedbackListSubtitle">
                     <div class="feedbackManage">
-                        &nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3374505,'hKll6T7bAW3lLhhHPKY7B6Tf7Dj5H3ricfRtXMHfQKTb6MDJSVGzlQ==')">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3374505,'hKll6T7bAW3lLhhHPKY7B6Tf7Dj5H3ricfRtXMHfQKTb6MDJSVGzlQ==')">引用</a><a href="javascript:void(0);" onclick="return DelComment(3374505,this, 5226207)">删除</a></span>
+                        &nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3923298,'3ARucO/yPBfL6+sToAkDUr+U3MqlAikZmzFT2okWZ91R5zVxbYisHg==')">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3923298,'3ARucO/yPBfL6+sToAkDUr+U3MqlAikZmzFT2okWZ91R5zVxbYisHg==')">引用</a><a href="javascript:void(0);" onclick="return DelComment(3923298,this, 8567909)">删除</a></span>
                     </div>
-                     <span class="comment_date">2016-03-08 12:40</span> | <a id="a_comment_author_3374505" href="http://www.cnblogs.com/dc2014/" target="_blank">DC2014</a> <a href="http://msg.cnblogs.com/send/DC2014" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+                     <span class="comment_date">2018-03-15 09:42</span> | <a id="a_comment_author_3923298" href="http://www.cnblogs.com/liqingwen/" target="_blank">反骨仔</a> <a href="http://msg.cnblogs.com/send/%E5%8F%8D%E9%AA%A8%E4%BB%94" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
                 </div>
                 <div class="feedbackCon">
-                    <div id="comment_body_3374505" class="blog_comment_body">支持支持</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3374505,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3374505,'Bury',this)">反对(0)</a></div><span id="comment_3374505_avatar" style="display:none;">http://pic.cnblogs.com/face/652651/20170203121704.png</span>
+                    <div id="comment_body_3923298" class="blog_comment_body">他这篇文章还真夸张，94 阅读量 20 赞。@海之殇<br><fieldset class="comment_quote"><legend><a href="#3923291" title="查看引用原文">引用</a></legend><br>你右边的精灵球有诱导用户推荐的嫌疑，挺讨厌这类的插件，应该明确标明是推荐按钮<br></fieldset></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3923298,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3923298,'Bury',this)">反对(0)</a></div><span id="comment_3923298_avatar" style="display:none;">http://pic.cnblogs.com/face/711762/20160911213130.png</span>
+                </div>
+            </div>
+        
+            <div class="feedbackItem">
+                <div class="feedbackListSubtitle">
+                    <div class="feedbackManage">
+                        &nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3923301,'debg5NlAM4XWljHSt6jjsOZR0DUm8BCZz14VryMyKATabAyGxF2tKA==')">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3923301,'debg5NlAM4XWljHSt6jjsOZR0DUm8BCZz14VryMyKATabAyGxF2tKA==')">引用</a><a href="javascript:void(0);" onclick="return DelComment(3923301,this, 8567909)">删除</a></span>
+                    </div>
+                     <span class="comment_date">2018-03-15 09:43</span> | <a id="a_comment_author_3923301" href="http://www.cnblogs.com/tlzzu/" target="_blank">tongling</a> <a href="http://msg.cnblogs.com/send/tongling" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+                </div>
+                <div class="feedbackCon">
+                    <div id="comment_body_3923301" class="blog_comment_body">我相信绝对不止我一个误击了→_→右边的球而找不到取消点赞按钮。。。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3923301,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3923301,'Bury',this)">反对(0)</a></div><span id="comment_3923301_avatar" style="display:none;">http://pic.cnblogs.com/face/544734/20170517140159.png</span>
+                </div>
+            </div>
+        
+            <div class="feedbackItem">
+                <div class="feedbackListSubtitle">
+                    <div class="feedbackManage">
+                        &nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3923303,'3ARucO/yPBfL6+sToAkDUr+U3MqlAikZmzFT2okWZ91R5zVxbYisHg==')">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3923303,'3ARucO/yPBfL6+sToAkDUr+U3MqlAikZmzFT2okWZ91R5zVxbYisHg==')">引用</a><a href="javascript:void(0);" onclick="return DelComment(3923303,this, 8567909)">删除</a></span>
+                    </div>
+                     <span class="comment_date">2018-03-15 09:44</span> | <a id="a_comment_author_3923303" href="http://www.cnblogs.com/liqingwen/" target="_blank">反骨仔</a> <a href="http://msg.cnblogs.com/send/%E5%8F%8D%E9%AA%A8%E4%BB%94" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+                </div>
+                <div class="feedbackCon">
+                    <div id="comment_body_3923303" class="blog_comment_body"><a href="#3923301" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3923301);">@</a>
+    tongling<br>就是，我想点击看看是什么东东</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3923303,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3923303,'Bury',this)">反对(0)</a></div><span id="comment_3923303_avatar" style="display:none;">http://pic.cnblogs.com/face/711762/20160911213130.png</span>
+                </div>
+            </div>
+        
+            <div class="feedbackItem">
+                <div class="feedbackListSubtitle">
+                    <div class="feedbackManage">
+                        &nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return GetCommentBody(3923362)">修改</a><a href="javascript:void(0);" onclick="return DelComment(3923362,this, 8567909)">删除</a></span>
+                    </div>
+                     <span class="comment_date">2018-03-15 10:21</span> | <a id="a_comment_author_3923362" href="http://www.cnblogs.com/vvjiang/" target="_blank">韩子卢</a> <a href="http://msg.cnblogs.com/send/%E9%9F%A9%E5%AD%90%E5%8D%A2" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+                </div>
+                <div class="feedbackCon">
+                    <div id="comment_body_3923362" class="blog_comment_body"><a href="#3923291" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3923291);">@</a>
+    海之殇<br>已经改了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3923362,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3923362,'Bury',this)">反对(0)</a></div><span id="comment_3923362_avatar" style="display:none;">http://pic.cnblogs.com/face/746209/20180314175910.png</span>
+                </div>
+            </div>
+        
+            <div class="feedbackItem">
+                <div class="feedbackListSubtitle">
+                    <div class="feedbackManage">
+                        &nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return GetCommentBody(3923363)">修改</a><a href="javascript:void(0);" onclick="return DelComment(3923363,this, 8567909)">删除</a></span>
+                    </div>
+                     <span class="comment_date">2018-03-15 10:21</span> | <a id="a_comment_author_3923363" href="http://www.cnblogs.com/vvjiang/" target="_blank">韩子卢</a> <a href="http://msg.cnblogs.com/send/%E9%9F%A9%E5%AD%90%E5%8D%A2" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+                </div>
+                <div class="feedbackCon">
+                    <div id="comment_body_3923363" class="blog_comment_body"><a href="#3923301" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3923301);">@</a>
+    tongling<br>已经改了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3923363,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3923363,'Bury',this)">反对(0)</a></div><span id="comment_3923363_avatar" style="display:none;">http://pic.cnblogs.com/face/746209/20180314175910.png</span>
+                </div>
+            </div>
+        
+            <div class="feedbackItem">
+                <div class="feedbackListSubtitle">
+                    <div class="feedbackManage">
+                        &nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return GetCommentBody(3923365)">修改</a><a href="javascript:void(0);" onclick="return DelComment(3923365,this, 8567909)">删除</a></span>
+                    </div>
+                     <span class="comment_date">2018-03-15 10:21</span> | <a id="a_comment_author_3923365" href="http://www.cnblogs.com/vvjiang/" target="_blank">韩子卢</a> <a href="http://msg.cnblogs.com/send/%E9%9F%A9%E5%AD%90%E5%8D%A2" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+                </div>
+                <div class="feedbackCon">
+                    <div id="comment_body_3923365" class="blog_comment_body"><a href="#3923298" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3923298);">@</a>
+    反骨仔<br>已经改了</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3923365,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3923365,'Bury',this)">反对(1)</a></div><span id="comment_3923365_avatar" style="display:none;">http://pic.cnblogs.com/face/746209/20180314175910.png</span>
+                </div>
+            </div>
+        
+            <div class="feedbackItem">
+                <div class="feedbackListSubtitle">
+                    <div class="feedbackManage">
+                        &nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return ReplyComment(3923384,'debg5NlAM4XWljHSt6jjsOZR0DUm8BCZz14VryMyKATabAyGxF2tKA==')">回复</a><a href="javascript:void(0);" onclick="return QuoteComment(3923384,'debg5NlAM4XWljHSt6jjsOZR0DUm8BCZz14VryMyKATabAyGxF2tKA==')">引用</a><a href="javascript:void(0);" onclick="return DelComment(3923384,this, 8567909)">删除</a></span>
+                    </div>
+                     <span class="comment_date">2018-03-15 10:30</span> | <a id="a_comment_author_3923384" href="http://www.cnblogs.com/tlzzu/" target="_blank">tongling</a> <a href="http://msg.cnblogs.com/send/tongling" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+                </div>
+                <div class="feedbackCon">
+                    <div id="comment_body_3923384" class="blog_comment_body">在最底部可以取消点赞~~~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3923384,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3923384,'Bury',this)">反对(0)</a></div><span id="comment_3923384_avatar" style="display:none;">http://pic.cnblogs.com/face/544734/20170517140159.png</span>
+                </div>
+            </div>
+        
+            <div class="feedbackItem">
+                <div class="feedbackListSubtitle">
+                    <div class="feedbackManage">
+                        &nbsp;&nbsp;<span class="comment_actions"><a href="javascript:void(0);" onclick="return GetCommentBody(3923400)">修改</a><a href="javascript:void(0);" onclick="return DelComment(3923400,this, 8567909)">删除</a></span>
+                    </div>
+                     <span class="comment_date">2018-03-15 10:38</span> | <a id="a_comment_author_3923400" href="http://www.cnblogs.com/vvjiang/" target="_blank">韩子卢</a> <a href="http://msg.cnblogs.com/send/%E9%9F%A9%E5%AD%90%E5%8D%A2" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+                </div>
+                <div class="feedbackCon">
+                    <div id="comment_body_3923400" class="blog_comment_body"><a href="#3923384" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3923384);">@</a>
+    tongling<br>在我的界面是看不到取消点赞的，我去别人的博客点个赞，再改</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3923400,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3923400,'Bury',this)">反对(0)</a></div><span id="comment_3923400_avatar" style="display:none;">http://pic.cnblogs.com/face/746209/20180314175910.png</span>
                 </div>
             </div>
         <div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
     <div id="comment_form" class="commentform">
     <a name="commentform"></a>
-    <div id="divCommentShow"></div>
+    <div id="divCommentShow"><div class="comment_my_posted"><img style="vertical-align:middle" src="//static.cnblogs.com/images/icon_comment.gif"> <a href="http://home.cnblogs.com/u/746209/"><b>韩子卢</b></a>:<blockquote class="bq_post_comment"><a href="#3923384" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3923384);">@</a>
+    tongling <br>看了一下，我从来都没有隐藏取消点赞的设置，只是在最底部而已，现在改为跟着球移动了，并且字体变大，这样更显眼一点</blockquote></div></div>
     <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
     <div id="comment_form_container"><script type="text/javascript" src="//mention.cnblogs.com/bundles/mention.js?id=20160615"></script>
     <div id="commentform_title">发表评论</div>
-    <span id="tip_comment" style="color:Red"></span>
+    <span id="tip_comment" style="color:Red">感谢您的回复:) 服务器端执行耗时1899毫秒</span>
     <p>
     昵称：<input type="text" id="tbCommentAuthor" class="author" disabled="disabled" size="50" value="韩子卢">
     </p>
@@ -185,32 +356,32 @@
     </div>
     </div>
     <div class="clear"></div>
-    <textarea id="tbCommentBody" class="comment_textarea"></textarea>
+    <textarea id="tbCommentBody" class="comment_textarea"></textarea><ul class="typeahead dropdown-menu" style="top: 16045.3px; left: 282.5px; display: none;"><li class="active"><a href="#"><img class="mention_image" src="//pic.cnblogs.com/face/544734/20170517140159.png"><b class="mention_name">tongling</b></a></li></ul>
     </div>
     <p id="commentbox_opt">
     <input id="btn_comment_submit" type="button" class="comment_btn" value="提交评论">
     <span id="span_comment_canceledit" style="display:none"><a href="javascript:void(0);" onclick="return CancelCommentEdit()">不改了</a></span>
     <a href="javascript:void(0);" onclick="return logout();">退出</a>
     </p>
-    <div id="tip_comment2" style="color:Red"></div>
+    <div id="tip_comment2" style="color:Red">感谢您的回复:) 服务器端执行耗时1899毫秒</div>
     <p>
     [Ctrl+Enter快捷键提交]
     </p>
     <div style="display:none">
-    <span id="comment_edit_id"></span><span id="span_parentcomment_id"></span>
+    <span id="comment_edit_id"></span><span id="span_parentcomment_id">3923384</span>
     <span id="span_parent_id"></span>
-    <span id="span_comment_replyto"></span>
+    <span id="span_comment_replyto">debg5NlAM4XWljHSt6jjsOZR0DUm8BCZz14VryMyKATabAyGxF2tKA==</span>
     <span id="span_comment_posted"></span>
     </div>
     </div>
     <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
-    <div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型工控、组态\仿真、建模CAD源码2018！</a><br><a href="https://www.cnblogs.com/cmt/p/8523765.html" target="_blank">【活动】2050 大会日程，5.25-5.27相聚杭州·云栖</a><br><a href="https://dnspod.cloud.tencent.com/act/yearendsales?from=IT&amp;fromSource=gwzcw.781137.781137.781137" target="_blank">【抢购】新注册用户域名抢购1元起</a><br><a href="https://cloud.tencent.com/act/campus/group/index?from=IT&amp;fromSource=gwzcw.781135.781135.781135" target="_blank">【推荐】云+校园计划邀请好友拼团有礼，奖励多多</a><br></div>
+    <div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型组态工控、电力仿真CAD与GIS源码库！</a><br><a href="http://click.aliyun.com/m/43774/" target="_blank">【缅怀】传奇谢幕，回顾霍金76载传奇人生</a><br><a href="https://cloud.tencent.com/act/campus?fromSource=gwzcw.860539.860539.860539" target="_blank">【推荐】腾讯云校园拼团福利，1核2G服务器10元/月！</a><br><a href="https://www.yunqi2050.com/#/index" target="_blank">【活动】2050 科技公益大会 - 年青人因科技而团聚</a><br></div>
     <div id="opt_under_post"></div>
-    <div id="cnblogs_c1" class="c_ad_block"><a href="https://dnspod.cloud.tencent.com/act/weapp?fromSource=gwzcw.781158.781158.781158" target="_blank"><img width="300" height="250" src="https://images2018.cnblogs.com/news/24442/201802/24442-20180228164005211-881957482.jpg" alt="tencent0228"></a></div>
-    <div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/591291/" target="_blank">日本70岁退休谈起</a><br> ·  <a href="https://news.cnblogs.com/n/591274/" target="_blank">Token，可能是比区块链更伟大的发明</a><br> ·  <a href="https://news.cnblogs.com/n/591297/" target="_blank">亚马逊计划未来在食品杂货业务中再投入220亿美元</a><br> ·  <a href="https://news.cnblogs.com/n/591279/" target="_blank">Magic Leap获沙特主权基金4.61亿美元融资</a><br> ·  <a href="https://news.cnblogs.com/n/591282/" target="_blank">出生在国外的工程师统治了硅谷的科技类职位</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
-    <div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/34770/" target="_blank"><img width="468" height="60" src="https://images2017.cnblogs.com/news/24442/201712/24442-20171208101900738-116140477.jpg" alt="阿里云C2-1208"></a></div>
+    <div id="cnblogs_c1" class="c_ad_block"><a href="https://market.qcloud.com/act/wangjian/?fromSource=gwzcw.860541.860541.860541" target="_blank"><img width="300" height="250" src="https://images2018.cnblogs.com/news/24442/201803/24442-20180314220122373-1718033865.jpg" alt="qcloud0314"></a></div>
+    <div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/591862/" target="_blank">“3·15”前夕 仍有在线旅游网站搭售保险</a><br> ·  <a href="https://news.cnblogs.com/n/591861/" target="_blank">马斯克不碰证券和加密货币 只投资自己的公司</a><br> ·  <a href="https://news.cnblogs.com/n/591860/" target="_blank">机构：加密货币给英伟达带来的增长明显放缓</a><br> ·  <a href="https://news.cnblogs.com/n/591859/" target="_blank">携程2017年全年营收41亿美元，同比增长39%</a><br> ·  <a href="https://news.cnblogs.com/n/591858/" target="_blank">员工爆料称生产过程中40%零部件需返工 特斯拉回应</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+    <div id="cnblogs_c2" class="c_ad_block"><a href="http://click.aliyun.com/m/42835/" target="_blank"><img width="468" height="60" src="https://gw.alicdn.com/tfs/TB1mEZFaWmWBuNjy1XaXXXCbXXa-468-60.jpg" alt="阿里云0308"></a></div>
     <div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/575255/" target="_blank">写给自学者的入门指南</a><br> ·  <a href="http://kb.cnblogs.com/page/578690/" target="_blank">和程序员谈恋爱</a><br> ·  <a href="http://kb.cnblogs.com/page/585734/" target="_blank">学会学习</a><br> ·  <a href="http://kb.cnblogs.com/page/588938/" target="_blank">优秀技术人的管理陷阱</a><br> ·  <a href="http://kb.cnblogs.com/page/590141/" target="_blank">作为一个程序员，数学对你到底有多重要</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
-    <div id="HistoryToday" class="c_ad_block"></div>
+    <div id="HistoryToday" class="c_ad_block"><b>历史上的今天:</b><br>2016-03-14 <a href="http://www.cnblogs.com/vvjiang/p/5277535.html">【C#进阶系列】11 事件</a><br></div>
     <script type="text/javascript">
         fixPostBody();
         setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
@@ -246,23 +417,25 @@
             
                     <ul class="catList">
                 
-                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_0" class="listitem" href="/categoryList.html">AngularJS学习笔记(3)</a></li>
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/vvjiang/category/791072.html">AngularJS学习笔记(3)</a></li>
                 
-                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_1" class="listitem" href="/categoryList.html">Bootstrap基础学习(6)</a></li>
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/vvjiang/category/787060.html">Bootstrap基础学习(6)</a></li>
                 
-                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_2" class="listitem" href="/categoryList.html">C#进阶系列(31)</a></li>
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/vvjiang/category/791984.html">C#进阶系列(31)</a></li>
                 
-                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_3" class="listitem" href="/categoryList.html">JavaScript复习(8)</a></li>
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/vvjiang/category/778596.html">JavaScript复习(8)</a></li>
                 
-                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_4" class="listitem" href="/categoryList.html">jQuery基础学习(13)</a></li>
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/vvjiang/category/782531.html">jQuery基础学习(13)</a></li>
                 
-                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_5" class="listitem" href="/categoryList.html">MVC拾遗(1)</a></li>
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_5" class="listitem" href="http://www.cnblogs.com/vvjiang/category/867521.html">MVC拾遗(1)</a></li>
                 
-                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_6" class="listitem" href="/categoryList.html">开发工具(2)</a></li>
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_6" class="listitem" href="http://www.cnblogs.com/vvjiang/category/994228.html">开发工具(2)</a></li>
                 
-                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_7" class="listitem" href="/categoryList.html">浏览器机制</a></li>
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_7" class="listitem" href="http://www.cnblogs.com/vvjiang/category/1118741.html">浏览器机制</a></li>
                 
-                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_8" class="listitem" href="/categoryList.html">重构(13)</a></li>
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_8" class="listitem" href="http://www.cnblogs.com/vvjiang/category/1178148.html">前端工程化(2)</a></li>
+                
+                    <li class="catListItem"> <a id="CatList_LinkList_0_Link_9" class="listitem" href="http://www.cnblogs.com/vvjiang/category/771960.html">重构(13)</a></li>
                 
                     </ul>
                 

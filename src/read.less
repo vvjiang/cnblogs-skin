@@ -63,8 +63,9 @@
   background: #fff;
   border: 1px solid #5bf;
   border-radius: 4px;
-  padding: 4px 8px;
   color: #5bf;
+  cursor: pointer;
+  padding: 4px 8px;
 }
 
 #green_channel_weibo>img,#green_channel_wechat>img{
@@ -157,6 +158,38 @@
 }
 .commentbox_title_right{
   float: right;
+}
+.blog_comment_body{
+  a{
+    color: @ThemeColor;
+  }
+}
+.comment_quote{
+  border-color: #eee;
+  border-radius: 4px;
+  margin-top: 16px;
+  padding: 8px 8px 16px 8px;
+
+  &>legend{
+    &>a{
+      color: @ThemeColor;
+      text-decoration: none;
+    }
+  }
+}
+.comment_my_posted{
+  padding: 24px;
+
+  a{
+    color: @ThemeColor;
+  }
+}
+.bq_post_comment{
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+#commentform_title{
+  background-position-y: 3px;
 }
 #tbCommentAuthor{
   background-color: #fff;
@@ -278,15 +311,15 @@
   margin: 0px;
   position: fixed;
   right: 0.5rem;
+  animation: jumping 5s ease-in-out;
+  animation-iteration-count: infinite;
 }
 
 .buryit {
   display: none;
 }
 
-.diggit {
-  animation: jumping 5s ease-in-out;
-  animation-iteration-count: infinite;
+.diggit { 
   background: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_ball2.png) no-repeat;
   border-radius: 50%;
   box-shadow: 0px 0px 15px 5px #fff inset;
@@ -296,8 +329,16 @@
   padding: 0px;
   width: 100px;
   text-align: center;
-}
 
+  &::before{
+    content: "\8FD9\91CC\662F\70B9\8D5E\54E6";
+    position: absolute;
+    top: -40px;
+    left: 7px;
+    font-size: 14px;
+    color: #5bf;
+  }
+}
 #div_digg .diggnum {
   line-height: 2em!important;
 }
@@ -308,5 +349,35 @@
   font-family: Verdana;
 }
 
+#digg_tips{
+  color: #fa5 !important;
+  width: 200px;
+  text-align: center;
+  margin-left: -50px;
+  margin-top: 20px;
+}
+a.digg_gray{
+  font-size: 18px;
+}
+
 
 /*    点赞样式End   */
+
+#HistoryToday{
+  text-align: center;
+  margin-top: 48px;
+  border-top: 1px solid #eee;
+  color: #ccc;
+
+  b{
+    margin: 16px 0;
+    display: inline-block;
+  }
+  br{
+    margin-top:16px;
+  }
+  a{
+    color: @ThemeColor; 
+    text-decoration: none;
+  }
+}
