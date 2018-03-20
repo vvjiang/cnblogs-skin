@@ -46,7 +46,7 @@ body{
 
 /* 页头 */
 #banner{
-    background-color: #5bf;
+    background-color: @ThemeColor;
     overflow: hidden;
 }
 //头像
@@ -108,8 +108,6 @@ body{
     margin-bottom: 8px;
 
     &>a{
-        text-decoration: none;
-        color: @ThemeColor;
         font-weight: bold;
     }
 }
@@ -129,7 +127,7 @@ body{
 #sidebar_categories{
     padding: 10px 20px;
     background-color: #fff;
-    border: 1px solid #5bf;
+    border: 1px solid @ThemeColor;
     border-radius: 4px;
     width: 160px;
     box-shadow: 5px 5px 10px rgba(200,200,200,0.5);
@@ -143,8 +141,6 @@ body{
     padding: 0;
 }
 .catListItem>a{
-    color: @ThemeColor;
-    text-decoration: none;
     line-height: 2;
     font-size: 14px;
 }

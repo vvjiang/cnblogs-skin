@@ -1,3 +1,6 @@
+@ThemeColor:#5bf;//主题色
+@OrnamentColor:#eee;//点缀色
+@DisableColor:#ccc;//表示禁用的颜色
 /*
 *此样式用于对原有样式的修正
 */
@@ -12,8 +15,8 @@
 }
 #green_channel #green_channel_digg,#green_channel #green_channel_follow,#green_channel #green_channel_favorite{
   background: #fff;
-  color: #5bf !important;
-  border: 1px solid #5bf !important;
+  color: @ThemeColor !important;
+  border: 1px solid @ThemeColor !important;
   text-shadow:none;
 }
 .commentbox_title{
@@ -31,4 +34,12 @@ div.commentform input.author{
 //抵消掉小屏时隐藏新随笔
 #mylinks #blog_nav_newpost{
   display:inline-block !important;
+}
+
+a{
+  color: @ThemeColor;
+  text-decoration: none;
+}
+a:hover{
+  color: #0094f7;
 }
