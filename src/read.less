@@ -61,9 +61,9 @@
 }
 .comment_btn{
   background: #fff;
-  border: 1px solid #5bf;
+  border: 1px solid @ThemeColor;
   border-radius: 4px;
-  color: #5bf;
+  color: @ThemeColor;
   cursor: pointer;
   padding: 4px 8px;
 }
@@ -73,9 +73,7 @@
   height: 24px;
   margin:0 8px;
 }
-#post_next_prev>a{
-  text-decoration: none;
-  color: @ThemeColor;
+#post_next_prev > a{
   line-height: 2;
 }
 .p_n_p_prefix{
@@ -89,10 +87,6 @@
 }
 .feedbackManage{
   float: right;
-}
-.feedbackListSubtitle a{
-  color: @ThemeColor;
-  text-decoration: none;
 }
 .comment_actions>a{
   text-decoration: none;
@@ -116,8 +110,6 @@
   float: right;
 
   &>a{
-    color:@ThemeColor;
-    text-decoration: none;
     display: inline-block;
     border: 1px solid;
     border-radius: 4px;
@@ -159,30 +151,14 @@
 .commentbox_title_right{
   float: right;
 }
-.blog_comment_body{
-  a{
-    color: @ThemeColor;
-  }
-}
 .comment_quote{
   border-color: #eee;
   border-radius: 4px;
   margin-top: 16px;
   padding: 8px 8px 16px 8px;
-
-  &>legend{
-    &>a{
-      color: @ThemeColor;
-      text-decoration: none;
-    }
-  }
 }
 .comment_my_posted{
   padding: 24px;
-
-  a{
-    color: @ThemeColor;
-  }
 }
 .bq_post_comment{
   border: 1px solid #eee;
@@ -244,11 +220,6 @@
 #BlogPostCategory{
   margin-top: 8px;
 }
-#BlogPostCategory a{
-  color:@ThemeColor;
-  text-decoration: none;
-}
-
 
 #blog_post_info{
   width: 100% !important;
@@ -269,13 +240,11 @@
 }
 
 #green_channel a{
-  color: #5bf;
-  border: 1px solid #5bf;
+  border: 1px solid @ThemeColor;
   border-radius: 4px;
   height: 36px;
   line-height: 36px;
   display: inline-block;
-  text-decoration: none;
   vertical-align: middle;
   padding: 0 8px;
 }
@@ -341,7 +310,7 @@
     top: -40px;
     left: 7px;
     font-size: 14px;
-    color: #5bf;
+    color: @ThemeColor;
   }
 }
 #div_digg .diggnum {
@@ -380,9 +349,5 @@ a.digg_gray{
   }
   br{
     margin-top:16px;
-  }
-  a{
-    color: @ThemeColor; 
-    text-decoration: none;
   }
 }
