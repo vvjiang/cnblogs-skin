@@ -1,7 +1,7 @@
 {
   "name": "cnblogs-skin",
   "version": "1.0.0",
-  "description": "一个萌系博客园皮肤",
+  "description": "一个简洁的博客园皮肤",
   "main": "app.js",
   "scripts": {
     "dev": "webpack-dev-server",
