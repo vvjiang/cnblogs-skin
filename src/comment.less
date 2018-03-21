@@ -1,0 +1,170 @@
+/*
+ * 评论相关
+ */
+ @import 'color.less';
+
+ .feedback_area_title{
+    display: none;
+  }
+  .comment_textarea{
+    width: 100% !important;;
+    resize: none;
+    height: 100px !important;;
+    border: 1px solid #999;
+    border-radius: 4px;
+    margin-top: 16px;
+    box-sizing: border-box;
+  }
+  #commentbox_opt{
+    text-align: right;
+  
+    //提交评论
+    .comment_btn{
+      background: #fff;
+      border: 1px solid @ThemeColor;
+      border-radius: 4px;
+      color: @ThemeColor;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+    //隐藏退出登陆
+    &>a{
+      display:none;
+    }
+  }
+  
+  #blog-comments-placeholder{
+    padding: 0 16px;
+  }
+
+
+  .feedbackItem{
+    clear: both;
+    padding: 48px 8px 16px;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+  }
+  .feedbackManage{
+    float: right;
+  }
+  .comment_actions>a{
+    text-decoration: none;
+    margin: 0 8px;
+    border: 1px solid;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+  
+    &:last-child{
+      color: #f44;
+      padding-right: 8px;
+    }
+  }
+  
+  .comment_date{
+    color: #ccc;
+    font-size: 14px;
+  }
+  .comment_vote{
+    margin-top: 32px;
+    float: right;
+  
+    &>a{
+      display: inline-block;
+      border: 1px solid;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 12px;
+      margin: 0 8px;
+    }
+  }
+  .comment_digg::before{
+    content: "";
+    display:inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 4px;
+    background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_thumb_up.png);
+  }
+  .comment_bury::before{
+    content: "";
+    display:inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 4px;
+    background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_thumb_down.png);
+  }
+  .blog_comment_body{
+    margin-top: 32px;
+    font-size: 16px;
+    color: @TextColor;
+  }
+  #comment_form_container{
+    padding: 0 16px;
+    margin-top: 24px;
+  }
+  .commentbox_title_left{
+    float: left;
+  }
+  .commentbox_title_right{
+    float: right;
+  }
+  .comment_quote{
+    border-color: #eee;
+    border-radius: 4px;
+    margin-top: 16px;
+    padding: 8px 8px 16px 8px;
+  }
+  
+  
+  .commentbox_title{
+    width: 100%;
+  }
+  #tip_comment{
+    display: none;
+  }
+  div.commentform input.author{
+    background-position: 3px -1px;
+  }
+  .comment_my_posted{
+    padding: 24px;
+  }
+  .bq_post_comment{
+    border: 1px solid #eee;
+    border-radius: 4px;
+  }
+  #commentform_title{
+    background-position-y: 3px;
+  }
+  #tbCommentAuthor{
+    background-color: #fff;
+    border: 1px solid #fff;
+    font-size: 16px;
+    color: #ccc;
+    width: 200px;
+  }
+  //发送站内短消息
+  .sendMsg2This{
+    background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_letter.png) !important;
+    text-decoration: none !important;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  //隐藏刷新按钮
+#comment_nav{
+    display:none;
+  }
+  //隐藏Ctrl+enter的提示
+  #tip_comment2+p{
+    display: none;
+  }
+
+  
+.feedbackCon{
+    padding: 0 16px;
+  }

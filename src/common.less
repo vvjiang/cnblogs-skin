@@ -1,28 +1,12 @@
-@import 'color.less';
-@import 'catList.less';
-
 /*
-*此样式用于对原有样式的修正
-*/
-.comment_actions a:last-child{
-  padding-right: 8px;
-}
+ * 整体框架和基础样式
+ */
+@import 'color.less';
 
-.commentbox_title{
-  width: 100%;
-}
-#tip_comment{
-  display: none;
-}
-div.commentform input.author{
-  background-position: 3px -1px;
-}
-#MyLinks1_NewArticleLink{
-  display: none;
-}
-//抵消掉小屏时隐藏新随笔
-#mylinks #blog_nav_newpost{
-  display:inline-block !important;
+body{
+  margin:0;
+  padding: 0;
+  background-color: @BgColor;
 }
 
 a{
@@ -31,4 +15,105 @@ a{
 }
 a:hover{
   color: #0094f7;
+}
+
+@media screen and (max-width: 1200px) {
+  #topics {
+      width: 100%;
+  }
+  #right{
+      position: absolute;
+      left: 32px;
+      top: 32px;
+      width: 32px;
+      height: 32px;
+      display: block;
+      background-image: linear-gradient(#fff 0%,#fff 20%,#55bbff 20%,#55bbff 40%,#fff 40%,#fff 60%,#5bf 60%,#55bbff 80%,#fff 80%);
+
+      &:hover{
+          #sidebar_categories{
+              display: block;
+          }
+      }
+  }
+  #sidebar_categories{
+      display: none;
+      position: absolute;
+      top:32px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  #topics {
+      width: 800px;
+      margin: 0 auto;
+  }
+  #right{
+      position: fixed;
+      left: 0;
+      top: 250px;
+      width: 200px;
+  }
+}
+
+/* 页头 */
+#banner{
+  background-color: @ThemeColor;
+  overflow: hidden;
+}
+//头像
+.headermaintitle{
+  position: relative;
+  background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_1.jpg);
+  border: 2px solid @OrnamentColor;
+  border-radius: 50%;
+  height: 97px;
+  margin: 20px auto;
+  text-align: center;
+  width: 97px;
+  display: block;
+
+  //名字
+  &::after{
+      content: "韩子卢";
+      color: @OrnamentColor;
+      font-weight: bold;
+      text-decoration: none;
+      position: absolute;
+      top: 102px;
+      left: 25px;
+  }
+}
+
+//副标题
+.headerDis{
+  text-align: center;
+  color: @DisableColor;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+//博客链接列表
+#mylinks{
+  text-align: center;
+  background-color:@ThemeColor;
+}
+//博客链接项
+.menu{
+  color: @OrnamentColor;
+  display: inline-block;
+  line-height: 3;
+  text-decoration: none;
+  padding: 0 10px;
+}
+//隐藏新文章
+#MyLinks1_NewArticleLink{
+  display: none;
+}
+//抵消掉小屏时隐藏新随笔
+#mylinks #blog_nav_newpost{
+  display:inline-block !important;
+}
+
+//隐藏页脚
+#footer{
+  display: none;
 }
