@@ -4,10 +4,12 @@
 
 @import 'color.less';
 @import 'animation.less';
+@import 'comment.less';
 
 #post_detail{
   padding: 24px;
   font-size: 14px;
+
   #cnblogs_post_body{
       padding-left: 8px;
   }
@@ -31,161 +33,41 @@
       max-width: 100%;
       vertical-align:middle;
   }
-
-}
-.cnblogs_code{
-  margin-bottom: 20px;
-  overflow: auto;
-  display: block;
-  padding: 9.5px;
-  font-size: 13px;
-  color: #657b83;
-  background-color: #f5f5f5;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}    
-.comment_textarea{
-  width: 100% !important;;
-  resize: none;
-  height: 100px !important;;
-  border: 1px solid #999;
-  border-radius: 4px;
-  margin-top: 16px;
-  box-sizing: border-box;
-}
-#commentbox_opt{
-  text-align: right;
-}
-.feedback_area_title{
-  display: none;
-}
-#blog-comments-placeholder{
-  padding: 0 16px;
-}
-.comment_btn{
-  background: #fff;
-  border: 1px solid @ThemeColor;
-  border-radius: 4px;
-  color: @ThemeColor;
-  cursor: pointer;
-  padding: 4px 8px;
-}
-
-#green_channel_weibo>img,#green_channel_wechat>img{
-  width: 24px;
-  height: 24px;
-  margin:0 8px;
-}
-#post_next_prev > a{
-  line-height: 2;
-}
-.p_n_p_prefix{
-  display: none;
-}
-.feedbackItem{
-  clear: both;
-  padding: 48px 8px 16px;
-  border-bottom: 1px solid #eee;
-  overflow: hidden;
-}
-.feedbackManage{
-  float: right;
-}
-.comment_actions>a{
-  text-decoration: none;
-  margin: 0 8px;
-  border: 1px solid;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 14px;
-
-  &:last-child{
-    color: #f44;
+  .cnblogs_code{
+    margin-bottom: 20px;
+    overflow: auto;
+    display: block;
+    padding: 9.5px;
+    font-size: 13px;
+    color: #657b83;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
 }
 
-.comment_date{
-  color: #ccc;
-  font-size: 14px;
+#green_channel_weibo,#green_channel_wechat{
+  &>img{
+    width: 24px;
+    height: 24px;
+    margin:0 8px;
+  } 
 }
-.comment_vote{
-  margin-top: 32px;
-  float: right;
+//上一篇 下一篇
+#post_next_prev{
+  clear: both;
+  margin-top: 24px;
 
   &>a{
-    display: inline-block;
-    border: 1px solid;
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 12px;
-    margin: 0 8px;
+    line-height: 2;
+  }
+
+  // 隐藏指向符号
+  .p_n_p_prefix{
+    display: none;
   }
 }
-.comment_digg::before{
-  content: "";
-  display:inline-block;
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  margin-right: 4px;
-  background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_thumb_up.png);
-}
-.comment_bury::before{
-  content: "";
-  display:inline-block;
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  margin-right: 4px;
-  background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_thumb_down.png);
-}
-.blog_comment_body{
-  margin-top: 32px;
-  font-size: 16px;
-  color: @TextColor;
-}
-#comment_form_container{
-  padding: 0 16px;
-  margin-top: 24px;
-}
-.commentbox_title_left{
-  float: left;
-}
-.commentbox_title_right{
-  float: right;
-}
-.comment_quote{
-  border-color: #eee;
-  border-radius: 4px;
-  margin-top: 16px;
-  padding: 8px 8px 16px 8px;
-}
-.comment_my_posted{
-  padding: 24px;
-}
-.bq_post_comment{
-  border: 1px solid #eee;
-  border-radius: 4px;
-}
-#commentform_title{
-  background-position-y: 3px;
-}
-#tbCommentAuthor{
-  background-color: #fff;
-  border: 1px solid #fff;
-  font-size: 16px;
-  color: #ccc;
-  width: 200px;
-}
-//发送站内短消息
-.sendMsg2This{
-  background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_letter.png) !important;
-  text-decoration: none !important;
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  vertical-align: middle;
-}
+
 //隐藏作者信息
 #author_profile,#author_profile_detail{
   display: none;
@@ -197,22 +79,6 @@
 //隐藏标签
 #EntryTag{
   display:none;
-}
-//隐藏退出登陆
-#commentbox_opt>a{
-  display:none;
-}
-//隐藏刷新按钮
-#comment_nav{
-  display:none;
-}
-//隐藏Ctrl+enter的提示
-#tip_comment2+p{
-  display: none;
-}
-
-.feedbackCon{
-  padding: 0 16px;
 }
 
 #blog_post_info_block{
@@ -227,6 +93,7 @@
 #blog_post_info{
   width: 100% !important;
 }
+// 解决小屏幕下的不美观
 @media screen and (min-width: 800px) {
   #BlogPostCategory{
     float: left;
@@ -237,10 +104,6 @@
   }
 }
 
-#post_next_prev{
-  clear: both;
-  margin-top: 24px;
-}
 //分享关注收藏的快速通道
 #green_channel{
   border:none;
@@ -284,9 +147,6 @@
 }
 
 /*    点赞样式Begin   */
-
-
-
 #div_digg {
   bottom: 0px;
   margin: 0px;
@@ -337,8 +197,6 @@
 a.digg_gray{
   font-size: 18px;
 }
-
-
 /*    点赞样式End   */
 
 
