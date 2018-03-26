@@ -20,7 +20,7 @@
 
   //评论内容
   .feedbackCon{
-    padding: 0 16px;
+    padding: 16px;
   }
   //评论操作
   .feedbackManage{
@@ -97,7 +97,7 @@
 }
 //评论组件
 #comment_form_container{
-  padding: 0 16px;
+  padding: 0 24px;
   margin-top: 24px;
 }
 .comment_textarea{
@@ -116,11 +116,15 @@
   //提交评论
   .comment_btn{
     background: #fff;
-    border: 1px solid @ThemeColor;
+    border: 1px solid;
     border-radius: 4px;
     color: @ThemeColor;
     cursor: pointer;
     padding: 4px 8px;
+    line-height: 18px;
+  }
+  .comment_btn:hover{
+    color: @BtnHover;
   }
   //隐藏退出登陆
   &>a{
@@ -132,6 +136,10 @@
 }
 .commentbox_title_right{
   float: right;
+
+  &>img{
+    cursor: pointer;
+  }
 }
 //隐藏掉多余的评论样式
 #tip_comment{
