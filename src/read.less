@@ -55,12 +55,15 @@
     margin: 0 auto;
   }
   ul{
-    list-style-image: radial-gradient(#55bbff,white);
+    list-style-image: radial-gradient(@ThemeColor,transparent);
     
     &>li{
       margin-top: 8px;
     }
-  }  
+  }
+  strong{
+    color:@AccentColor;
+  }
 }
 
 #green_channel_weibo,#green_channel_wechat{
@@ -133,6 +136,11 @@
     color: @ThemeColor !important;
     border: 1px solid @ThemeColor !important;
     text-shadow:none;
+    box-shadow: none;
+
+    &:hover{
+      box-shadow: 0 1px 3px rgba(0,0,0,.5);
+    }
   }
   a{
     border: 1px solid @ThemeColor;
