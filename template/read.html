@@ -76,23 +76,29 @@
                                 <p>下面是短的代码示例</p>
                                 <pre><code class="hljs swift">npm <span class="hljs-keyword">init</span></code></pre>
                                 <p>下面是长的代码示例</p>
-                                <pre>
-                                    <code class="hljs json">{
-                                        "<span class="hljs-attr">name</span>": <span class="hljs-string">"webpack-demo"</span>,
-                                        "<span class="hljs-attr">version</span>": <span class="hljs-string">"1.0.0"</span>,
-                                        "<span class="hljs-attr">description</span>": <span class="hljs-string">"webpack的使用demo"</span>,
-                                        "<span class="hljs-attr">main</span>": <span class="hljs-string">"index.js"</span>,
-                                        "<span class="hljs-attr">author</span>": <span class="hljs-string">"韩子卢"</span>,
-                                        "<span class="hljs-attr">license</span>": <span class="hljs-string">"MIT"</span>,
-                                        "<span class="hljs-attr">devDependencies</span>": {
-                                          "<span class="hljs-attr">webpack</span>": <span class="hljs-string">"^3.10.0"</span>
-                                        },
-                                        "<span class="hljs-attr">scripts</span>": {
-                                          "<span class="hljs-attr">build</span>": <span class="hljs-string">"webpack ./src/app.js ./build/bundle.js"</span>
-                                        }
-                                      }
-                                    </code>
-                                </pre>
+<pre>
+    <code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+    <span class="hljs-keyword">import</span> { shallow } <span class="hljs-keyword">from</span> <span class="hljs-string">'enzyme'</span>
+    <span class="hljs-keyword">import</span> CommentItem <span class="hljs-keyword">from</span> <span class="hljs-string">'./commentItem'</span>
+                                                    
+    describe(<span class="hljs-string">'测试评论列表项组件'</span>, () =&gt; {
+    <span class="hljs-comment">// 这是mocha的玩法，jest可以直接兼容</span>
+        it(<span class="hljs-string">'测试评论内容小于等于200时不出现展开收起按钮'</span>, () =&gt; {
+              <span class="hljs-keyword">const</span> propsData = {
+                date: <span class="hljs-string">'2018-03-04 10:10:11'</span>,
+                name: <span class="hljs-string">'匿名人'</span>,
+                content: <span class="hljs-string">'测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题测试标题'</span>
+            }
+            <span class="hljs-keyword">const</span> item = shallow(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">CommentItem</span> {<span class="hljs-attr">...propsData</span>} /&gt;</span>)</span>
+            <span class="hljs-comment">//看到这里的断言了吗，实际上和chai的expect是很像的</span>
+            expect(item.find(<span class="hljs-string">'.btn-expand'</span>).length).toBe(<span class="hljs-number">0</span>);
+        })
+        <span class="hljs-comment">// 这是jest的玩法，推荐用这种</span>
+        test(<span class="hljs-string">'两数相加结果为两个数字的和'</span>, () =&gt; {
+            expect(<span class="hljs-number">3</span>).toBe(<span class="hljs-number">3</span>);
+        });
+     }</code>
+</pre>
 
                                 <h2 id="图片的样式">图片的样式</h2>
                                 <p>图片包含在段落中的示例：
@@ -534,9 +540,6 @@
             <!-- right ends -->
         </div>
     </div>
-
-
-
 </body>
 
 </html>
