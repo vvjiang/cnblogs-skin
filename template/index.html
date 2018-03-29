@@ -17,6 +17,33 @@
 </head>
 
 <body>
+    <!-- 此处放入页首Begin -->
+    <div id="loadingbar">
+        <div id="loadingProcess"></div>
+    </div>
+    <script type="text/javascript">
+        var loadingProcess = 0;
+        var isLoading = true;
+        var $loadingProcess = $('#loadingProcess');
+
+        function loading() {
+            loadingProcess += 1;
+            if (loadingProcess >= 80) {
+                loadingProcess = 80;
+            }
+            $loadingProcess.css('width', loadingProcess + '%');
+            if (!isLoading && loadingProcess === 80) {
+                $loadingProcess.css('width', '100%').hide(200);
+            } else {
+                requestAnimationFrame(loading);
+            }
+        }
+        loading();
+        $(function () {
+            isLoading = false;
+        })
+    </script>
+    <!-- 此处放入页首End -->
     <a name="top"></a>
 
     <!--done-->
