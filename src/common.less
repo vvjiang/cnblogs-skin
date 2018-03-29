@@ -134,3 +134,18 @@ a:hover{
 #footer{
   display: none;
 }
+//加载进度条
+#loadingProcess{
+  position: absolute;
+  height: 3px;
+  box-sizing: border-box;
+  width: 0%;
+  background-color: @AccentColor;
+  background-image: linear-gradient(to right,transparent 0%,transparent 80%,#fff 100% );
+  border-bottom-right-radius: 1px;
+  border-top-right-radius: 1px;
+}
+// 回复中代码片段会遮挡精灵球
+.syntaxhighlighter{
+  z-index: -1
+}
