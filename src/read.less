@@ -174,7 +174,7 @@
 
 /*    点赞样式Begin   */
 #div_digg {
-  bottom: 50px;
+  bottom: 72px;
   margin: 0px;
   position: fixed;
   right: 16px;
@@ -227,8 +227,21 @@ a.digg_gray{
   position: fixed;
   bottom: 0;
   right: 0;
-  width: 155px;
   cursor: pointer;
+}
+#xiaociguai>img{
+  width: 155px;
+}
+#xiaociguai::after{
+  content: '';
+  width: 2px;
+  height: 2px;
+  background-color: #666;
+  position: absolute;
+  left: 69px;
+  top: 43px;
+  animation: eyemove 10s ease-in-out;
+  animation-iteration-count: infinite;
 }
 #xiaociguai:hover,#xiaociguai.enable-electric{
   -webkit-filter: saturate(7);

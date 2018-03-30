@@ -17,48 +17,48 @@
 </head>
 
 <body>
-   <!-- 此处放入页首Begin -->
-   <div id="loadingProcess"></div>
-   <script type="text/javascript">
-       var loadingProcess = 0;
-       var isLoading = true;
-       var $loadingProcess = $('#loadingProcess');
+    <!-- 此处放入页首Begin -->
+    <div id="loadingProcess"></div>
+    <script type="text/javascript">
+        var loadingProcess = 0;
+        var isLoading = true;
+        var $loadingProcess = $('#loadingProcess');
 
-       function loading() {
-           loadingProcess += 1;
-           if (loadingProcess >= 80) {
-               loadingProcess = 80;
-           }
-           $loadingProcess.css('width', loadingProcess + '%');
-           if (!isLoading && loadingProcess === 80) {
-               $loadingProcess.css('width', '100%').hide(200);
-           } else {
-               requestAnimationFrame(loading);
-           }
-       }
-       loading();
-       $(function () {
-           // 页面加载完毕，停掉加载动画
-           isLoading = false;
-           // 载入小磁怪
-           if ($('#div_digg').length === 1 || window.location.href.indexOf('\/p\/')!==-1) {
-               $(document.body).append('<img id="xiaociguai" title="电磁波切换" alt="电磁波切换" src="http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_xiaociguai1.jpg" />')
-               // 绑定停止精灵球跳动按钮
-               var isStopJump = false;
-               $('#xiaociguai').click(function (e) {
-                   if (isStopJump) {
-                       $('#div_digg').css('animation', 'jumping 5s ease-in-out').css('animation-iteration-count', 'infinite');
-                       $('#xiaociguai').removeClass('enable-electric')
-                   } else {
-                       $('#div_digg').css('animation', 'unset');
-                       $('#xiaociguai').addClass('enable-electric')
-                   }
-                   isStopJump = !isStopJump;
-               })
-           }
-       })
-   </script>
-   <!-- 此处放入页首End -->
+        function loading() {
+            loadingProcess += 1;
+            if (loadingProcess >= 80) {
+                loadingProcess = 80;
+            }
+            $loadingProcess.css('width', loadingProcess + '%');
+            if (!isLoading && loadingProcess === 80) {
+                $loadingProcess.css('width', '100%').hide(200);
+            } else {
+                requestAnimationFrame(loading);
+            }
+        }
+        loading();
+        $(function () {
+            // 页面加载完毕，停掉加载动画
+            isLoading = false;
+            // 载入小磁怪
+            if ($('#div_digg').length === 1 || window.location.href.indexOf('\/p\/')!==-1) {
+                $(document.body).append('<div id="xiaociguai"><img title="电磁波切换" alt="电磁波切换" src="http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_xiaociguai2.jpg" /></div>')
+                // 绑定停止精灵球跳动按钮
+                var isStopJump = false;
+                $('#xiaociguai').click(function (e) {
+                    if (isStopJump) {
+                        $('#div_digg').css('animation', 'jumping 5s ease-in-out').css('animation-iteration-count', 'infinite');
+                        $('#xiaociguai').removeClass('enable-electric')
+                    } else {
+                        $('#div_digg').css('animation', 'unset');
+                        $('#xiaociguai').addClass('enable-electric')
+                    }
+                    isStopJump = !isStopJump;
+                })
+            }
+        })
+    </script>
+    <!-- 此处放入页首End -->
     <a name="top"></a>
 
     <!--done-->
