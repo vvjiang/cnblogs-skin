@@ -174,10 +174,10 @@
 
 /*    点赞样式Begin   */
 #div_digg {
-  bottom: 0px;
+  bottom: 50px;
   margin: 0px;
   position: fixed;
-  right: 0.5rem;
+  right: 16px;
   animation: jumping 5s ease-in-out;
   animation-iteration-count: infinite;
 }
@@ -185,7 +185,6 @@
 .buryit {
   display: none;
 }
-
 .diggit { 
   background: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_ball2.png) no-repeat;
   border-radius: 50%;
@@ -198,11 +197,12 @@
   text-align: center;
 
   &::before{
-    content: "\8FD9\91CC\662F\70B9\8D5E\54E6";
+    content: "这里是点赞哦";
+
     position: absolute;
     top: -40px;
-    left: 7px;
-    font-size: 14px;
+    left: 0px;
+    font-size: 18px;
     color: @ThemeColor;
   }
 }
@@ -220,9 +220,22 @@
   margin-left: -50px;
   margin-top: 20px;
 }
+
 a.digg_gray{
   font-size: 18px;
 }
+#xiaociguai{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 155px;
+  cursor: pointer;
+}
+#xiaociguai:hover,#xiaociguai.enable-electric{
+  -webkit-filter: saturate(7);
+  filter: saturate(7);
+}
+
 /*    点赞样式End   */
 
 
