@@ -19,47 +19,7 @@
 <body>
     <!-- 此处放入页首Begin -->
     <div id="loadingProcess"></div>
-    <script type="text/javascript">
-        var loadingProcess = 0;
-        var isLoading = true;
-        var $loadingProcess = $('#loadingProcess');
-
-        function loading() {
-            loadingProcess += 1;
-            if (loadingProcess >= 80) {
-                loadingProcess = 80;
-            }
-            $loadingProcess.css('width', loadingProcess + '%');
-            if (!isLoading && loadingProcess === 80) {
-                $loadingProcess.css('width', '100%').hide(200);
-            } else {
-                requestAnimationFrame(loading);
-            }
-        }
-        loading();
-        $(function () {
-            // 页面加载完毕，停掉加载动画
-            isLoading = false;
-            // 载入小磁怪
-            if ($('#div_digg').length === 1 || window.location.href.indexOf('\/p\/')!==-1) {
-                $(document.body).append('<div id="xiaociguai"><img title="电磁波切换" alt="电磁波切换" src="http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_xiaociguai2.jpg" /></div>')
-                // 绑定停止精灵球跳动按钮
-                var isStopJump = false;
-                $('#xiaociguai').click(function (e) {
-                    if (isStopJump) {
-                        $('#div_digg').css('animation', 'jumping 5s ease-in-out').css('animation-iteration-count', 'infinite');
-                        $('#xiaociguai').removeClass('enable-electric')
-                    } else {
-                        $('#div_digg').css('animation', 'unset');
-                        $('#xiaociguai').addClass('enable-electric')
-                    }
-                    isStopJump = !isStopJump;
-                })
-            }
-            // 点击头像跳转到个人信息页面
-            $('#Header1_HeaderTitle').attr('href','https://home.cnblogs.com/u/vvjiang/')
-        })
-    </script>
+    <script type="text/javascript" src="../src/js/header.js"></script>
     <!-- 此处放入页首End -->
     <a name="top"></a>
 
@@ -138,17 +98,12 @@
                         <div class="postDesc">posted @ 2017-05-01 17:56 韩子卢 阅读(387) 评论(0)
                             <a href="https://i.cnblogs.com/EditPosts.aspx?postid=6792341" rel="nofollow">编辑</a>
                         </div>
-
                     </div>
-
-
                     <div class="day">
                         <div class="dayTitle">
                             <a id="homepage1_HomePageDays_DaysList_ctl02_ImageLink" title="Day link" href="//www.cnblogs.com/vvjiang/archive/2016/08/14.html"></a>
                             &nbsp; 2016年8月14日
                         </div>
-
-
                         <div class="postTitle">
                             <a id="homepage1_HomePageDays_DaysList_ctl02_DayList_TitleUrl_0" class="postTitle2" href="/read.html">【MVC拾遗】MVC的单元测试简单学习总结</a>
                         </div>
@@ -161,17 +116,12 @@
                         <div class="postDesc">posted @ 2016-08-14 21:54 韩子卢 阅读(1689) 评论(0)
                             <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5771153" rel="nofollow">编辑</a>
                         </div>
-
                     </div>
-
-
                     <div class="day">
                         <div class="dayTitle">
                             <a id="homepage1_HomePageDays_DaysList_ctl03_ImageLink" title="Day link" href="//www.cnblogs.com/vvjiang/archive/2016/05/31.html"></a>
                             &nbsp; 2016年5月31日
                         </div>
-
-
                         <div class="postTitle">
                             <a id="homepage1_HomePageDays_DaysList_ctl03_DayList_TitleUrl_0" class="postTitle2" href="/read.html">【C#进阶系列】30 学习总结</a>
                         </div>
@@ -184,9 +134,7 @@
                         <div class="postDesc">posted @ 2016-05-31 23:45 韩子卢 阅读(415) 评论(2)
                             <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5548138" rel="nofollow">编辑</a>
                         </div>
-
                         <div class="postSeparator"></div>
-
                         <div class="postTitle">
                             <a id="homepage1_HomePageDays_DaysList_ctl03_DayList_TitleUrl_1" class="postTitle2" href="/read.html">【C#进阶系列】29 混合线程同步构造</a>
                         </div>
@@ -199,7 +147,6 @@
                         <div class="postDesc">posted @ 2016-05-31 23:30 韩子卢 阅读(280) 评论(0)
                             <a href="https://i.cnblogs.com/EditPosts.aspx?postid=5548099" rel="nofollow">编辑</a>
                         </div>
-
                     </div>
 
 
