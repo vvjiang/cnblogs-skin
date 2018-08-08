@@ -42,12 +42,12 @@ function beginModifyComment() {
 // 生成文章的目录结构
 function createCatalog() {
   var $h2Arr = $('#cnblogs_post_body>h2');
-  if ($h2Arr.length > 0){
-    var catalogContent=[].join.call($h2Arr.map(function(index,item){
-      return '<li><a href="#'+item.id+'">'+item.innerText+'</a></li>'
-    }),'');
+  if ($h2Arr.length > 0) {
+    var catalogContent = [].join.call($h2Arr.map(function (index, item) {
+      return '<li><a title="' + item.innerText + '" href="#' + item.id + '">' + item.innerText + '</a></li>'
+    }), '');
 
-    $('body').append('<div id="reader_catalog"><h3>目录</h3><ul>'+catalogContent+'</ul></div>')
+    $('body').append('<div id="reader_catalog"><h3>目录</h3><ul>' + catalogContent + '</ul></div>')
   }
 }
 
