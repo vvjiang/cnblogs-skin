@@ -7,7 +7,6 @@ var $loadingProcess = $('#loadingProcess');
 
 // 改造评论结构与样式，展示用户头像
 function modifyComment() {
-
   $('.feedbackCon>.blog_comment_body').each(function (index, item) {
     var faceIcon = 'http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_default_face.jpg'
     var commentId = $(item).attr('id').split('_')[2];
@@ -15,7 +14,7 @@ function modifyComment() {
     $(item).find('a').attr('onclick', '');
     // 为了点击@有效，得加上id为评论id的功能
     if ($('#' + commentId).length === 0) {
-      $(item).parent().parent().attr('id',commentId);
+      $(item).parent().parent().attr('id', commentId);
     }
     // 取得博客园提供的隐藏头像信息
     var $hiddenInfo = $('#comment_' + commentId + '_avatar')
@@ -40,7 +39,17 @@ function beginModifyComment() {
     modifyComment()
   }
 }
+// 生成文章的目录结构
+function createCatalog() {
+  var $h2Arr = $('#cnblogs_post_body>h2');
+  if ($h2Arr.length > 0){
+    var catalogContent=[].join.call($h2Arr.map(function(index,item){
+      return '<li><a href="#'+item.id+'">'+item.innerText+'</a></li>'
+    }),'');
 
+    $('body').append('<div id="reader_catalog"><h3>目录</h3><ul>'+catalogContent+'</ul></div>')
+  }
+}
 
 // 页面加载进度条
 function loading() {
@@ -79,4 +88,6 @@ $(function () {
   beginModifyComment();
   // 点击头像跳转到个人信息页面
   $('#Header1_HeaderTitle').attr('href', 'https://home.cnblogs.com/u/vvjiang/')
+  // 生成文章目录
+  createCatalog();
 })
