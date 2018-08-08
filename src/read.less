@@ -229,6 +229,7 @@ a.digg_gray{
   bottom: 0;
   right: 0;
   cursor: pointer;
+  z-index: 1993;
 }
 #xiaociguai>img{
   width: 155px;
@@ -252,7 +253,7 @@ a.digg_gray{
 /*    点赞样式End   */
 
 
-/* 历史上的今天  */
+/*    历史上的今天  */
 #HistoryToday{
   text-align: center;
   margin-top: 48px;
@@ -265,5 +266,37 @@ a.digg_gray{
   }
   br{
     margin-top:16px;
+  }
+}
+
+/*    目录样式   */
+#reader_catalog{
+  position: fixed;
+  z-index: 1991;
+  right: 0;
+  top: 250px;
+  padding: 10px 20px;
+  background-color: #fff;
+  border: 1px solid #5bf;
+  border-radius: 4px;
+  width: 160px;
+  box-shadow: -5px 5px 10px rgba(200, 200, 200, 0.5);
+
+  &>h3{
+    font-size: 18px;
+    color: #ccc;
+    margin: 12px 0;
+  }
+
+  &>ul{
+    list-style: none;
+    padding: 0;
+
+    &>li{
+      line-height: 2em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
