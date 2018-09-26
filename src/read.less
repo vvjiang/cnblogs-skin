@@ -281,6 +281,7 @@ a.digg_gray{
   border-radius: 4px;
   width: 230px;
   box-shadow: -5px 5px 10px rgba(200, 200, 200, 0.5);
+  max-height: 430px;
 
   &>h3{
     font-size: 18px;
@@ -291,6 +292,8 @@ a.digg_gray{
   &>ul{
     list-style: none;
     padding: 0;
+    overflow: auto;
+    max-height: 380px;
 
     &>li{
       line-height: 2em;
