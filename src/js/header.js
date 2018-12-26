@@ -91,7 +91,7 @@ $(function () {
     // 精灵球被点击后直接被小磁怪吸附
     $('.diggit').click(stopJump);
     // 如果判定为曾经做过点赞或者取消点赞的操作，那么也被小磁怪吸附
-    if ($('#digg_tips').text().trim() === '') {
+    if ($('#digg_tips').text().trim() !== '') {
       stopJump();
     }
   }
