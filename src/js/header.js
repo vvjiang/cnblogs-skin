@@ -70,24 +70,35 @@ $(function () {
   isLoading = false;
   // 载入小磁怪
   if ($('#div_digg').length === 1 || window.location.href.indexOf('\/p\/') !== -1) {
-    $(document.body).append('<div id="xiaociguai"><img title="电磁波切换" alt="电磁波切换" src="http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_xiaociguai2.jpg" /></div>')
+    $(document.body).append('<div id="xiaociguai"><img title="电磁波切换" alt="电磁波切换" src="http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_xiaociguai2.jpg" /></div>');
+
     // 绑定停止精灵球跳动按钮
     var isStopJump = false;
+    var stopJump = function () {
+      $('#div_digg').css('animation', 'unset');
+      $('#xiaociguai').addClass('enable-electric');
+      isStopJump = true;
+    }
     $('#xiaociguai').click(function (e) {
       if (isStopJump) {
         $('#div_digg').css('animation', 'jumping 5s ease-in-out').css('animation-iteration-count', 'infinite');
-        $('#xiaociguai').removeClass('enable-electric')
+        $('#xiaociguai').removeClass('enable-electric');
+        isStopJump = false;
       } else {
-        $('#div_digg').css('animation', 'unset');
-        $('#xiaociguai').addClass('enable-electric')
+        stopJump();
       }
-      isStopJump = !isStopJump;
     })
+    // 精灵球被点击后直接被小磁怪吸附
+    $('.diggit').click(stopJump);
+    // 如果判定为曾经做过点赞或者取消点赞的操作，那么也被小磁怪吸附
+    if ($('#digg_tips').text().trim() === '') {
+      stopJump();
+    }
   }
   // 修改评论样式，加载评论头像
   beginModifyComment();
   // 点击头像跳转到个人信息页面
-  $('#Header1_HeaderTitle').attr('href', 'https://home.cnblogs.com/u/vvjiang/')
+  $('#Header1_HeaderTitle').attr('href', 'https://home.cnblogs.com/u/vvjiang/');
   // 生成文章目录
   createCatalog();
 })
