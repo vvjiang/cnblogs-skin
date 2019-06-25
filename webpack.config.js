@@ -41,6 +41,25 @@ const config = {
                 use: ['css-loader', 'less-loader'],
             }),
         },
+        {
+            test: /\.(gif|png|jpe?g|svg)$/i,
+            use: {
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: 'src/images/'
+                }
+            }
+        },
+        {
+            test: /\.html$/,
+            use: [{
+                loader: 'html-loader',
+                options: {
+                    minimize: true
+                }
+            }],
+        }
         ],
     },
     plugins: [

@@ -14,23 +14,72 @@
 //评论项
 .feedbackItem{
   clear: both;
-  padding: 48px 8px 16px;
+  padding: 20px 8px 30px;
   border-bottom: 1px solid #eee;
   overflow: hidden;
 
+
+  .feedbackListSubtitle{
+    position: relative;
+  }
+
   //评论内容
   .feedbackCon{
-    padding: 0 16px;
+    padding: 16px 2px;
   }
   //评论操作
   .feedbackManage{
     float: right;
+    line-height: 50px;
     
     .blog_comment_body{
       margin-top: 32px;
       font-size: 16px;
       color: @TextColor;
     }
+  }
+  //发送站内短消息
+  .sendMsg2This{
+    background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_letter.png) !important;
+    text-decoration: none !important;
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    display: none;
+  }
+  //评论日期
+  .comment_date{
+    margin-top: 30px;
+    margin-left: 8px;
+    display: inline-block;
+    font-size: 12px;
+
+    &::after{
+      content: '';
+      width: 10px;
+      height: 16px;
+      display: inline-block;
+      position: absolute;
+      background: #fff;
+      top: 29px;
+    }
+  }
+  //评论名
+  .comment_name{
+    position: absolute;
+    left: 58px;
+    top: 4px;
+  }
+  //评论头像
+  .comment_face{
+    background-repeat: no-repeat;
+    display: block;
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    float: left;
   }
   .comment_actions>a{
     text-decoration: none;
@@ -53,15 +102,7 @@
   margin-top: 16px;
   padding: 8px 8px 16px 8px;
 }
-//发送站内短消息
-.sendMsg2This{
-  background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_letter.png) !important;
-  text-decoration: none !important;
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  vertical-align: middle;
-}
+
 .comment_date{
   color: #ccc;
   font-size: 14px;
@@ -78,14 +119,17 @@
     padding: 4px 8px;
     font-size: 12px;
     margin: 0 8px;
+    line-height: 16px;
 
     &::before{
       content: "";
-      display:inline-block;
-      width: 16px;
+      display: inline-block;
+      width: 24px;
       height: 16px;
       vertical-align: middle;
-      margin-right: 4px;
+      position: absolute;
+      background-color: #fff;
+      background-repeat: no-repeat;
     }
     &.comment_digg::before{
       background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_thumb_up.png);
@@ -97,17 +141,22 @@
 }
 //评论组件
 #comment_form_container{
-  padding: 0 16px;
+  padding: 0 24px;
   margin-top: 24px;
 }
-.comment_textarea{
-  width: 100% !important;;
+div.commentform textarea.comment_textarea{
+  width: 100%;
   resize: none;
-  height: 100px !important;;
-  border: 1px solid #999;
+  height: 250px;
+  border: 1px solid #ddd;
   border-radius: 4px;
   margin-top: 16px;
   box-sizing: border-box;
+  background-image: url(http://images.cnblogs.com/cnblogs_com/vvjiang/996881/o_pangding2.png);
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  box-shadow: 0px 0px 12px #ddd inset;
+  overflow: auto;
 }
     
 #commentbox_opt{
@@ -116,11 +165,15 @@
   //提交评论
   .comment_btn{
     background: #fff;
-    border: 1px solid @ThemeColor;
+    border: 1px solid;
     border-radius: 4px;
     color: @ThemeColor;
     cursor: pointer;
     padding: 4px 8px;
+    line-height: 18px;
+  }
+  .comment_btn:hover{
+    color: @BtnHover;
   }
   //隐藏退出登陆
   &>a{
@@ -132,6 +185,10 @@
 }
 .commentbox_title_right{
   float: right;
+
+  &>img{
+    cursor: pointer;
+  }
 }
 //隐藏掉多余的评论样式
 #tip_comment{
