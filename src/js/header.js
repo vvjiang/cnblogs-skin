@@ -33,7 +33,7 @@ function modifyComment() {
 }
 // 直到评论加载完毕才开始修改评论样式
 function beginModifyComment() {
-  if ($('#comments_pager_bottom').length === 0) {
+  if ($('#comment_pager_bottom').length === 0) {
     setTimeout(beginModifyComment, 500)
   } else {
     modifyComment()
