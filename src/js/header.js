@@ -60,7 +60,8 @@ function createCatalogLeaderLine($h2Arr) {
     endPlug: "disc",
     size: 2,
     startSocket: "left",
-    endSocket: "right"
+    endSocket: "right",
+    hide:true
   };
   [].slice.call($h2Arr).forEach(function (item) {
     var anchor = LeaderLine.mouseHoverAnchor(document.getElementById('catalog' + item.id), 'draw', {
