@@ -302,10 +302,14 @@ a.digg_gray{
     max-height: 380px;
 
     &>li{
-      line-height: 2em;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+
+      &>a{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 100%;
+        line-height: 2em;
+      }
     }
   }
 }
