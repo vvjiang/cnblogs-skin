@@ -1,5 +1,9 @@
 # cnblogs-skin #
 
+已废弃，更换仓库地址为：https://gitee.com/wmvc/cnblogs-skin
+
+原文
+
 一款基于博客园blank样式的简洁皮肤。
 
 博客地址：http://www.cnblogs.com/vvjiang
